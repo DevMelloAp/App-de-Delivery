@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/login.module.css';
+import { requestLogin } from '../utils/request';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [enableButton, setEnableButton] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
 
   useEffect(() => {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -14,6 +17,25 @@ function Login() {
     const isValid = mailValidator && passValid;
     setEnableButton(isValid);
   }, [email, password]);
+
+  const handleLogin = async () => {
+    try {
+      const { token } = await requestLogin('/login', { email, password });
+
+      setToken(token);
+
+      // const { role } = await requestData('/login/validate', { email, password });
+
+      localStorage.setItem('token', token);
+      // localStorage.setItem('role',  role);
+
+      setIsLogged(true);
+      setFailedTryLogin(false);
+    } catch (error) {
+      setFailedTryLogin(true);
+      setIsLogged(false);
+    }
+  };
 
   return (
     <div className={ styles.loginPage }>
@@ -42,9 +64,17 @@ function Login() {
               type="submit"
               data-testid="common_login__button-login"
               disabled={ !enableButton }
+              onClick={ handleLogin }
             >
               Login
             </button>
+            { !isLogged && failedTryLogin && (
+              <span
+                data-testid="common_login__element-invalid-email"
+              >
+                Usuário não encontrado
+              </span>
+            )}
             <button
               type="submit"
               data-testid="common_login__button-register"
