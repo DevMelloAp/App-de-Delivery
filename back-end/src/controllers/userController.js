@@ -1,7 +1,7 @@
 const md5 = require('md5');
-const UserService = require('../services/userServises');
 const { StatusCodes } = require('http-status-codes');
-const loginService = require('../services/userServises');
+const UserService = require('../services/userServises');
+const { loginService } = require('../services/userServises');
 
 const create = async (req, res) => {
   const { name, email, password } = req.body;
@@ -27,10 +27,9 @@ const loginController = async (req, res) => {
   }
   const { email, password } = req.body;
 
-  const token = await loginService(email, password);
+  const userInfo = await loginService(email, password);
  
-  res.status(StatusCodes.OK).json({ token });
+  res.status(StatusCodes.OK).json(userInfo);
 };
 
 module.exports = { create, list, loginController };
-
