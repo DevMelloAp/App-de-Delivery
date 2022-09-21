@@ -29,6 +29,11 @@ const { JwtServiceSign } = require('./JwtService');
 const loginService = async (email, password) => {
   userValidate(email, password);
     const userDB = await db.User.findOne({ where: { email } });
+  if(!userDB) {
+    const e = new Error('User not found');
+    e.name = 'NotFound';
+    throw e;
+  }
     const passwordMd5 = md5(password);
   if (userDB.password !== passwordMd5) {
     const e = new Error('Incorrect email or password');
