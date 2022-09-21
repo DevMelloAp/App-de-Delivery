@@ -13,12 +13,6 @@ const create = async (req, res) => {
   res.status(201).json(newUser);
 };
 
-const list = async (req, res) => {
-  const lista = await UserService.list();
-
-  res.status(201).json(lista);
-};
-
 const loginController = async (req, res) => {
   if (!req.body) {
     const e = new Error('Email and password is required');
@@ -31,4 +25,4 @@ const loginController = async (req, res) => {
   res.status(StatusCodes.OK).json(userInfo);
 };
 
-module.exports = { create, list, loginController };
+module.exports = { create, loginController };
