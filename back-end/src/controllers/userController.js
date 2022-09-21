@@ -26,7 +26,6 @@ const loginController = async (req, res) => {
     throw e;
   }
   const { email, password } = req.body;
-
   const userInfo = await loginService(email, password);
  
   res.status(StatusCodes.OK).json(userInfo);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import styles from '../styles/login.module.css';
 import { requestLogin } from '../utils/request';
 
@@ -8,6 +9,8 @@ function Login() {
   const [enableButton, setEnableButton] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
+  // const [ Token, setToken] = useState('');
+  const [Role, setRole] = useState('');
 
   useEffect(() => {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -18,24 +21,28 @@ function Login() {
     setEnableButton(isValid);
   }, [email, password]);
 
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
     try {
-      const { token } = await requestLogin('/login', { email, password });
-
-      setToken(token);
-
-      // const { role } = await requestData('/login/validate', { email, password });
-
+      const request = await requestLogin('/login', { email, password });
+      const { token, role } = request;
+      setRole(role);
       localStorage.setItem('token', token);
-      // localStorage.setItem('role',  role);
+      localStorage.setItem('role', role);
 
       setIsLogged(true);
-      setFailedTryLogin(false);
     } catch (error) {
       setFailedTryLogin(true);
       setIsLogged(false);
     }
   };
+
+  useEffect(() => {
+    setFailedTryLogin(false);
+  }, [email, password]);
+
+  if (isLogged && Role === 'customer') return <Navigate to="/customer/products" />;
 
   return (
     <div className={ styles.loginPage }>
@@ -64,17 +71,17 @@ function Login() {
               type="submit"
               data-testid="common_login__button-login"
               disabled={ !enableButton }
-              onClick={ handleLogin }
+              onClick={ (e) => { handleLogin(e); } }
             >
               Login
             </button>
-            { !isLogged && failedTryLogin && (
-              <span
+            { failedTryLogin ? (
+              <p
                 data-testid="common_login__element-invalid-email"
               >
                 Usuário não encontrado
-              </span>
-            )}
+              </p>
+            ) : null}
             <button
               type="submit"
               data-testid="common_login__button-register"

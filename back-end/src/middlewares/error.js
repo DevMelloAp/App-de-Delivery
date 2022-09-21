@@ -2,6 +2,7 @@ const { StatusCodes } = require('http-status-codes');
 
 const errorMiddleware = (err, _req, res, _next) => {
   const { name, message } = err;
+  console.log(err.stack);
   switch (name) {
     case 'ValidationError': res.status(StatusCodes.BAD_REQUEST).json({ message });
       break;
