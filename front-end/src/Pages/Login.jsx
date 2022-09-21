@@ -1,40 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../styles/login.module.css';
+import { requestLogin } from '../utils/request';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [enableButton, setEnableButton] = useState(false);
-  const [isValidEmail, setIsValidEmail] = useState(false);
-  const [isValidPass, setIsValidPass] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
 
-  const validateEmail = (emailValue) => {
+  useEffect(() => {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const mailValidator = regexEmail.test(emailValue);
-    return mailValidator;
-  };
+    const mailValidator = regexEmail.test(email);
+    const passMinLength = 6;
+    const passValid = password.length >= passMinLength;
+    const isValid = mailValidator && passValid;
+    setEnableButton(isValid);
+  }, [email, password]);
 
-  const validatePassword = (passwordValue) => {
-    const passMinLength = 5;
-    const passValid = passwordValue.length > passMinLength;
-    return passValid;
-  };
+  const handleLogin = async () => {
+    try {
+      const { token } = await requestLogin('/login', { email, password });
 
-  const handleChange = ({ target }) => {
-    const { name } = target;
-    const { value } = target;
-    if (name === 'email') {
-      setEmail(value);
-      setIsValidEmail(validateEmail(value));
+      setToken(token);
+
+      // const { role } = await requestData('/login/validate', { email, password });
+
+      localStorage.setItem('token', token);
+      // localStorage.setItem('role',  role);
+
+      setIsLogged(true);
+      setFailedTryLogin(false);
+    } catch (error) {
+      setFailedTryLogin(true);
+      setIsLogged(false);
     }
-    if (name === 'password') {
-      setPassword(value);
-      setIsValidPass(validatePassword(value));
-    }
-
-    const btnEnable = (isValidEmail && isValidPass);
-    if (!btnEnable) setEnableButton(false);
-    if (btnEnable) setEnableButton(true);
   };
 
   return (
@@ -46,8 +46,8 @@ function Login() {
             type="email"
             name="email"
             value={ email }
-            data-test-id="common_login__input-email"
-            onChange={ handleChange }
+            data-testid="common_login__input-email"
+            onChange={ (e) => { setEmail(e.target.value); } }
           />
           <div>
             <p>Password</p>
@@ -55,21 +55,29 @@ function Login() {
               type="text"
               name="password"
               value={ password }
-              data-test-id="common_login__input-password"
-              onChange={ handleChange }
+              data-testid="common_login__input-password"
+              onChange={ (e) => { setPassword(e.target.value); } }
             />
           </div>
           <div className={ styles.contentButtons }>
             <button
               type="submit"
-              data-test-id="common_login__button-login"
+              data-testid="common_login__button-login"
               disabled={ !enableButton }
+              onClick={ handleLogin }
             >
               Login
             </button>
+            { !isLogged && failedTryLogin && (
+              <span
+                data-testid="common_login__element-invalid-email"
+              >
+                Usuário não encontrado
+              </span>
+            )}
             <button
               type="submit"
-              data-test-id="common_login__button-register"
+              data-testid="common_login__button-register"
             >
               Ainda não tenho conta
             </button>
