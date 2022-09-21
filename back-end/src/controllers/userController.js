@@ -1,5 +1,7 @@
 const md5 = require('md5');
 const UserService = require('../services/userServises');
+const { StatusCodes } = require('http-status-codes');
+const loginService = require('../services/userServises');
 
 const create = async (req, res) => {
   const { name, email, password } = req.body;
@@ -17,4 +19,18 @@ const list = async (req, res) => {
   res.status(201).json(lista);
 };
 
-module.exports = { create, list };
+const loginController = async (req, res) => {
+  if (!req.body) {
+    const e = new Error('Email and password is required');
+    e.name = 'NotFoundError';
+    throw e;
+  }
+  const { email, password } = req.body;
+
+  const token = await loginService(email, password);
+ 
+  res.status(StatusCodes.OK).json({ token });
+};
+
+module.exports = { create, list, loginController };
+
