@@ -4,6 +4,7 @@ import './App.css';
 
 import Login from './Pages/Login';
 import Products from './Pages/Products';
+import Register from './Pages/Register';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route exact path="/" element={ <Navigate to="/login" /> } />
       <Route exact path="/costumer/products" element={ <Products /> } />
       <Route exact path="/login" element={ <Login /> } />
+      <Route exact path="/register" element={ <Register /> } />
     </Routes>
   );
 }

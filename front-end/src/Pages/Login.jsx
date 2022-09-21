@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import styles from '../styles/login.module.css';
 import { requestLogin } from '../utils/request';
 
@@ -11,6 +11,8 @@ function Login() {
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   // const [ Token, setToken] = useState('');
   const [Role, setRole] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -85,6 +87,7 @@ function Login() {
             <button
               type="submit"
               data-testid="common_login__button-register"
+              onClick={ () => navigate('/register') }
             >
               Ainda não tenho conta
             </button>
