@@ -1,5 +1,5 @@
-const { User } = require('../database/models');
 const md5 = require('md5');
+const { User } = require('../database/models');
 const userValidate = require('../middlewares/userValidate');
 const db = require('../database/models');
 const { JwtServiceSign } = require('./JwtService');
@@ -26,7 +26,6 @@ const { JwtServiceSign } = require('./JwtService');
         return usersList;
     };
 
-
 const loginService = async (email, password) => {
   userValidate(email, password);
     const userDB = await db.User.findOne({ where: { email } });
@@ -40,11 +39,13 @@ const loginService = async (email, password) => {
   const token = JwtServiceSign({
     id: userDB.id,
     email: userDB.email,
-    role: userDB.role,
   });
 
-  return token;
+  return {
+    name: userDB.name,
+    email: userDB.email,
+    role: userDB.role,
+    token };
 };
 
  module.exports = { create, list, loginService };
-
