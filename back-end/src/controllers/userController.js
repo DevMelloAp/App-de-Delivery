@@ -32,4 +32,4 @@ const loginController = async (req, res) => {
   res.status(StatusCodes.OK).json(userInfo);
 };
 
-module.exports = { create, list, loginController };
+module.exports = { create, loginController };
