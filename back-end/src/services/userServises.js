@@ -1,34 +1,38 @@
 const md5 = require('md5');
 const { User } = require('../database/models');
+
 const userValidate = require('../middlewares/userValidate');
+const registerValidate = require('../middlewares/registerValidate');
 const db = require('../database/models');
 const { JwtServiceSign } = require('./JwtService');
 
-    const create = async ({ name, email, password }) => {
-      const role = 'customer';
-      const usersList = await User.findAll();
-          const userList = usersList.map((it) => it.email);
+const create = async ({ name, email, password }) => {
+  registerValidate(email, password, name);
+    const role = 'customer';
+    const foundEmail = await User.findOne({ where: { email } });
+    const foundName = await User.findOne({ where: { name } });
   
-          if (userList.includes(email)) {
-              const e = new Error('User already registered');
-              e.name = 'ConflictError';
-              throw e;
-          }
-  
-      const user = await User.create({ name, email, password, role });
-     
-      return user;
-    };
+  if (foundEmail || foundName) {
+    const e = new Error('User already registered');
+    e.name = 'ConflictError';
+    throw e;
+  }
 
-    const list = async () => {
-        const usersList = await User.findAll();
-       
-        return usersList;
-    };
+  const user = await User.create({ name, email, password, role });
+
+  const token = JwtServiceSign({ id: user.id, email: user.email });
+
+  return { name: user.name, email: user.email, role: user.role, token };
+};
 
 const loginService = async (email, password) => {
   userValidate(email, password);
     const userDB = await db.User.findOne({ where: { email } });
+  if (!userDB) {
+    const e = new Error('User not found');
+    e.name = 'NotFound';
+    throw e;
+  }
     const passwordMd5 = md5(password);
   if (userDB.password !== passwordMd5) {
     const e = new Error('Incorrect email or password');
@@ -36,16 +40,9 @@ const loginService = async (email, password) => {
     throw e;
   }
 
-  const token = JwtServiceSign({
-    id: userDB.id,
-    email: userDB.email,
-  });
+  const token = JwtServiceSign({ id: userDB.id, email: userDB.email });
 
-  return {
-    name: userDB.name,
-    email: userDB.email,
-    role: userDB.role,
-    token };
+  return { name: userDB.name, email: userDB.email, role: userDB.role, token };
 };
 
- module.exports = { create, list, loginService };
+ module.exports = { create, loginService };

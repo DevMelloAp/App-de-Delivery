@@ -5,18 +5,12 @@ const { loginService } = require('../services/userServises');
 
 const create = async (req, res) => {
   const { name, email, password } = req.body;
- 
-  const passwordMd5 = md5(password);
 
+  const passwordMd5 = md5(password);
   const newUser = await UserService.create({ name, email, password: passwordMd5 });
 
+  console.log(newUser);
   res.status(201).json(newUser);
-};
-
-const list = async (req, res) => {
-  const lista = await UserService.list();
-
-  res.status(201).json(lista);
 };
 
 const loginController = async (req, res) => {
@@ -26,10 +20,9 @@ const loginController = async (req, res) => {
     throw e;
   }
   const { email, password } = req.body;
-
   const userInfo = await loginService(email, password);
  
   res.status(StatusCodes.OK).json(userInfo);
 };
 
-module.exports = { create, list, loginController };
+module.exports = { create, loginController };
