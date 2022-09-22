@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import styles from '../styles/login.module.css';
+import { register } from '../utils/request';
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -9,15 +10,27 @@ function Register() {
   const [enableButton, setEnableButton] = useState(true);
 
   useEffect(() => {
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\*/i;
+    const regexEmail = /\S+@\S+\.\S+/;
     const mailValidator = regexEmail.test(email);
     const passMinLength = 6;
-    const nameMaxLength = 12;
-    const nameValid = nome.length <= nameMaxLength;
+    const nameMinLength = 12;
+    const nameValid = nome.length > nameMinLength;
     const passValid = password.length >= passMinLength;
     const isValid = mailValidator && passValid && nameValid;
     setEnableButton(isValid);
   }, [email, password, nome]);
+
+  const handleRegister = async (event) => {
+    event.preventDefault();
+
+    try {
+      const request = await register('/register', { email, nome, password });
+      console.log(request);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className={ styles.registerPage }>
@@ -57,6 +70,7 @@ function Register() {
               type="submit"
               data-testid="common_register__button-register"
               disabled={ !enableButton }
+              onClick={ handleRegister }
 
             >
               Cadastre
