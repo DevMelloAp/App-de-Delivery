@@ -4,7 +4,6 @@ const UserService = require('../services/userServises');
 const { loginService } = require('../services/userServises');
 
 const create = async (req, res) => {
-
   const { name, email, password } = req.body;
 
   const passwordMd5 = md5(password);

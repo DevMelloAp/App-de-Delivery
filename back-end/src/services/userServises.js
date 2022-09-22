@@ -20,7 +20,6 @@ const create = async ({ name, email, password }) => {
 
   const user = await User.create({ name, email, password, role });
 
-
   const token = JwtServiceSign({ id: user.id, email: user.email });
 
   return { name: user.name, email: user.email, role: user.role, token };
