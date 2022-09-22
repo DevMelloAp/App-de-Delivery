@@ -5,11 +5,11 @@ const { loginService } = require('../services/userServises');
 
 const create = async (req, res) => {
   const { name, email, password } = req.body;
- 
-  const passwordMd5 = md5(password);
 
+  const passwordMd5 = md5(password);
   const newUser = await UserService.create({ name, email, password: passwordMd5 });
 
+  console.log(newUser);
   res.status(201).json(newUser);
 };
 
