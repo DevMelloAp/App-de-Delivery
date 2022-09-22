@@ -5,7 +5,7 @@ const createSalesController = async (req, res) => {
     userId,
     sellerId, 
     totalPrice,
-    deliveryAdress, 
+    deliveryAddress, 
     deliveryNumber,
     status } = req.body;
  
@@ -13,7 +13,7 @@ const createSalesController = async (req, res) => {
     userId,
     sellerId, 
     totalPrice,
-    deliveryAdress, 
+    deliveryAddress, 
     deliveryNumber,
     status });
 

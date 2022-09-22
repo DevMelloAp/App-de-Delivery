@@ -1,23 +1,23 @@
 const db = require('../database/models');
 
-const createSalesService = ({ 
+const createSalesService = async ({ 
   userId,
   sellerId, 
   totalPrice,
-  deliveryAdress, 
+  deliveryAddress, 
   deliveryNumber,
   status }) => {
-  db.Sales.create({ 
+  await db.Sale.create({ 
     userId,
     sellerId, 
     totalPrice,
-    deliveryAdress, 
+    deliveryAddress, 
     deliveryNumber,
     status });
 };
 
-const updateSalesService = (id, status) => {
-  db.Sales.update({ status }, { where: { id } });
+const updateSalesService = async (id, status) => {
+  await db.Sale.update({ status }, { where: { id } });
 };
 
 module.exports = { createSalesService, updateSalesService };
