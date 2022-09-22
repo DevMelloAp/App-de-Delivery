@@ -7,7 +7,7 @@ const registerValidate = (email, password, name) => {
         const e = new Error('Name must be at least 12 characters long');
         e.name = 'NotFoundError';
         throw e;
-}
+    }
 };
 
 module.exports = registerValidate;
