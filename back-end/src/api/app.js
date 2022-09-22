@@ -5,7 +5,11 @@ const express = require('express');
 
 const userRouter = require('../routes/userRoutes');
 const loginRouter = require('../routes/loginRoutes');
+
+const salesRouter = require('../routes/salesRouter');
+
 const productsRouter = require('../routes/productsRoutes');
+
 
 const errorMiddleware = require('../middlewares/error');
 
@@ -25,7 +29,11 @@ app.use(express.json());
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use('/login', loginRouter);
 app.use('/register', userRouter);
+
+app.use('/sales', salesRouter);
+
 app.use('/products', productsRouter);
+
 
 app.use(errorMiddleware);
 
