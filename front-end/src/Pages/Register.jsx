@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import styles from '../styles/login.module.css';
 import { register } from '../utils/request';
@@ -6,31 +7,40 @@ import { register } from '../utils/request';
 function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [nome, setNome] = useState('');
+  const [name, setName] = useState('');
   const [enableButton, setEnableButton] = useState(true);
+  const [failedTryRegister, setFailedTryRegister] = useState(false);
 
+  const navigate = useNavigate();
   useEffect(() => {
     // const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\*/i;
     const regexEmail = /\S+@\S+\.\S+/;
     const mailValidator = regexEmail.test(email);
     const passMinLength = 6;
     const nameMinLength = 12;
-    const nameValid = nome.length > nameMinLength;
+    const nameValid = name.length > nameMinLength;
     const passValid = password.length >= passMinLength;
     const isValid = mailValidator && passValid && nameValid;
     setEnableButton(isValid);
-  }, [email, password, nome]);
+  }, [email, password, name]);
 
   const handleRegister = async (event) => {
     event.preventDefault();
-
     try {
-      const request = await register('/register', { email, nome, password });
-      console.log(request);
+      const request = await register('/register', { email, name, password });
+      console.log('AJUDA NÓIS', request);
+      console.log(request.role === 'customer');
+      if (request.role === 'customer') {
+        return navigate('/customer/products');
+      }
     } catch (error) {
+      setFailedTryRegister(true);
       console.error(error);
     }
   };
+  useEffect(() => {
+    setFailedTryRegister(false);
+  }, [email, name, password]);
 
   return (
     <div className={ styles.registerPage }>
@@ -38,11 +48,11 @@ function Register() {
         <div className={ styles['content-two'] }>
           <p>Nome</p>
           <input
-            type="nome"
-            name="nome"
-            value={ nome }
+            type="name"
+            name="name"
+            value={ name }
             data-testid="common_register__input-name"
-            onChange={ (e) => { setNome(e.target.value); } }
+            onChange={ (e) => { setName(e.target.value); } }
 
           />
           <div>
@@ -75,6 +85,13 @@ function Register() {
             >
               Cadastre
             </button>
+            { failedTryRegister ? (
+              <p
+                data-testid="common_register__element-invalid_register"
+              >
+                Usuário ja existente
+              </p>
+            ) : null}
           </div>
         </div>
       </div>
