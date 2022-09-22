@@ -1,39 +1,38 @@
 .loginPage {
-    align-items: center;
-    display: flex;
-    font-size: 20px;
-    height: 100vh;
-    justify-content: center;
-  }
+  align-items: center;
+  display: flex;
+  font-size: 20px;
+  height: 100vh;
+  justify-content: center;
+}
   
-  .content {
-    border: 1px solid black;
-    display: flex;
-    height: 30rem;
-    padding: 2rem 4rem;
-    width: 32rem;
-  }
-  
-  .content, p {
-    display: block;
-    text-align: left;
-  }
-  
-  .content, input {
-    text-align: center;
-  }
-  
-  .content, div {
-    margin-top: 2rem;
-  }
-  
-  .contentButtons {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .contentButtons :first-child {
-    margin-top: 2rem;
-  }
-  
+.content {
+  border: 1px solid black;
+  display: flex;
+  height: 30rem;
+  padding: 2rem 4rem;
+  width: 32rem;
+}
+
+.content, p {
+  display: block;
+  text-align: left;
+}
+
+.content, input {
+  text-align: center;
+}
+
+.content, div {
+  margin-top: 2rem;
+}
+
+.contentButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contentButtons :first-child {
+  margin-top: 2rem;
+}
