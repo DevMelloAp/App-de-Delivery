@@ -1,5 +1,7 @@
 'use strict';
 
+const { sequelize } = require("../models");
+
 
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -11,39 +13,40 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       user_id: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER,
         references: {
-          model: {tableName: "users"}
-        },
-        key: "id"
+          model: "users",
+          key: "id"
+        }   
       },
       seller_id: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER,
         references: {
-          model: {tableName: "users"}
-        },
-        key: "id"
+          model:  "users", 
+          key: "id"
+        },        
       },
       total_price: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DECIMAL(9,2)
       },
       delivery_address: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
       delivery_number: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       }, 
       sale_date: {
-        allowNull: false,
+        allowNull: true,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP()"),
         type: Sequelize.DATE
       },  
       status: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },     
     })
