@@ -1,4 +1,4 @@
-.loginPage {
+.registerPage {
   align-items: center;
   display: flex;
   font-size: 20px;
@@ -36,3 +36,4 @@
 .contentButtons :first-child {
   margin-top: 2rem;
 }
+
