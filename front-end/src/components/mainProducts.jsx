@@ -5,8 +5,12 @@ import ProductCard from './ProductCard';
 export default function MainProducts() {
   const [products, setProducts] = useState();
 
-  useEffect(async () => {
+  const getProducts = async () => {
     setProducts(await requestData('/products'));
+  };
+
+  useEffect(() => {
+    getProducts();
   }, []);
   console.log(products);
   return (
