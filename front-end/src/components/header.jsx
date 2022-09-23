@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from '../styles/header.module.css';
+import { getToLocalstorage } from '../utils/userLocalstorage';
 
 export default function Header() {
-  // const name = localStorage.getItem('user');
   const { name } = getToLocalstorage();
   return (
     <header>

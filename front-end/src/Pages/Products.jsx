@@ -1,11 +1,11 @@
 import React from 'react';
-// import Header from '../components/header';
+import Header from '../components/header';
 import MainProducts from '../components/mainProducts';
 
 function Products() {
   return (
     <div>
-      {/* <Header /> */}
+      <Header />
       <MainProducts />
 
     </div>

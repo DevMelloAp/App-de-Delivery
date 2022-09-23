@@ -10,9 +10,13 @@ export default function MainProducts() {
   console.log(products);
   return (
     <div>
-      { products ? ( products.forEach((product) => (
-        <p>{product.name}</p>
-      )): null )}
+      { products ? products.map((product) => (
+        <div key={ product.name }>
+          <p>{product.name}</p>
+          <p>{product.price}</p>
+          <img src={ product.url_image } alt={ product.name } />
+        </div>
+      )) : null }
     </div>
   );
 }
