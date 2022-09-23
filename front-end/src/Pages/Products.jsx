@@ -1,10 +1,15 @@
 import React from 'react';
 import Header from '../components/header';
+import MainProducts from '../components/mainProducts';
 
-export default function Products() {
+function Products() {
   return (
-    <div className="header">
+    <div>
       <Header />
+      <MainProducts />
+
     </div>
   );
 }
+
+export default Products;

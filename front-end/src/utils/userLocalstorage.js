@@ -1,9 +1,9 @@
 function sendToLocalstorage(info) {
-  localStorage.setItem('userInfor', JSON.parse(info));
+  localStorage.setItem('userInfor', JSON.stringify(info));
 }
 
 function getToLocalstorage() {
-  const info = JSON.stringify(localStorage.getItem('userInfor'));
+  const info = JSON.parse(localStorage.getItem('userInfor'));
 
   return info;
 }

@@ -32,6 +32,10 @@ app.use('/register', userRouter);
 app.use('/sales', salesRouter);
 
 app.use('/products', productsRouter);
+<<<<<<< HEAD
+=======
+app.use('/images', express.static('public'));
+>>>>>>> bbaf2c29979d5a9a71e25b49e3f3b3022f4ce794
 
 app.use(errorMiddleware);
 
