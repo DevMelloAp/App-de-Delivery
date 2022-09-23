@@ -1,0 +1,19 @@
+.productCard {
+  border: solid black;
+  display: flex;
+  flex-direction: column;
+  height: 24rem;
+  margin-left: 2rem;
+  padding: 1rem;
+  width: 11rem;
+}
+
+.productCard img {
+  height: 10rem;
+}
+
+.quantityCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
