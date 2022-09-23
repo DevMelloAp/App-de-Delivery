@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { requestData } from '../utils/request';
+import ProductCard from './ProductCard';
 
 export default function MainProducts() {
   const [products, setProducts] = useState();
@@ -15,7 +16,7 @@ export default function MainProducts() {
           <ProductCard
             name={ product.name }
             price={ product.price }
-            url_image={ product.url_image }
+            urlImage={ product.url_image }
             index={ index }
           />
         </div>
