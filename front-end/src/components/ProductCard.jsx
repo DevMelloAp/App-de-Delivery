@@ -31,13 +31,13 @@ function ProductCard(props) {
           {' '}
 
         </button>
-        <div data-testid={ `customer_products__input-card-quantity-${index}` }>
+        <span data-testid={ `customer_products__input-card-quantity-${index}` }>
 
           { quantity }
 
           {' '}
 
-        </div>
+        </span>
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${index}` }

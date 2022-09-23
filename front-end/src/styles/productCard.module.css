@@ -1,11 +1,21 @@
+.mainProduct {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2rem 4rem;
+  width: 100%;
+}
+
 .productCard {
-  border: solid black;
+  border: solid #333 1px;
+  border-radius: 2px;
   display: flex;
   flex-direction: column;
   height: 24rem;
   margin-left: 2rem;
   padding: 1rem;
-  width: 11rem;
+  width: 15rem;
 }
 
 .productCard img {
@@ -13,7 +23,10 @@
 }
 
 .quantityCard {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 5px;
+  justify-content: center;
 }
+
