@@ -9,9 +9,10 @@ export default function Header() {
       <nav className={ styles.header }>
         <ul className={ styles.settings }>
           <li
-            data-testid="customer_products__element-navbar-user-full-name"
+            href="customer/products"
+            data-testid="customer_products__element-navbar-link-products"
           >
-            {JSON.parse(name).name}
+            PRODUTOS
           </li>
 
           <li
@@ -22,12 +23,11 @@ export default function Header() {
 
           </li>
           <li
-            href="customer/products"
-            data-testid="customer_products__element-navbar-link-products"
+            data-testid="customer_products__element-navbar-user-full-name"
           >
-            PRODUTOS
-
+            {name}
           </li>
+
           <li
             href="/logout"
             data-testid="customer_products__element-navbar-link-logout"
