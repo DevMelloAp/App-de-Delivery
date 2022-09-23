@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from '../styles/login.module.css';
 import { register } from '../utils/request';
+import { sendToLocalstorage } from '../utils/userLocalstorage';
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -28,8 +29,8 @@ function Register() {
     event.preventDefault();
     try {
       const request = await register('/register', { email, name, password });
-      console.log('AJUDA NÓIS', request);
-      console.log(request.role === 'customer');
+      const { token, role } = request;
+      sendToLocalstorage({ name, email, token, role });
       if (request.role === 'customer') {
         return navigate('/customer/products');
       }

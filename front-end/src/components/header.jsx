@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from '../styles/header.module.css';
+import { getToLocalstorage } from '../utils/userLocalstorage';
 
 export default function Header() {
-  const user = localStorage.getItem('user');
+  const { name } = getToLocalstorage();
   return (
     <header>
       <nav className={ styles.header }>
@@ -12,7 +13,6 @@ export default function Header() {
             data-testid="customer_products__element-navbar-link-products"
           >
             PRODUTOS
-
           </li>
 
           <li
@@ -25,7 +25,7 @@ export default function Header() {
           <li
             data-testid="customer_products__element-navbar-user-full-name"
           >
-            {JSON.parse(user).name}
+            {name}
           </li>
 
           <li

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import styles from '../styles/login.module.css';
 import { requestLogin } from '../utils/request';
+import { sendToLocalstorage } from '../utils/userLocalstorage';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -28,10 +29,11 @@ function Login() {
 
     try {
       const request = await requestLogin('/login', { email, password });
-      const { token, role } = request;
+      const { name, token, role } = request;
       setRole(role);
-      localStorage.setItem('token', token);
-      localStorage.setItem('role', role);
+      sendToLocalstorage({ name, email, token, role });
+      // localStorage.setItem('token', token);
+      // localStorage.setItem('role', role);
 
       setIsLogged(true);
     } catch (error) {
