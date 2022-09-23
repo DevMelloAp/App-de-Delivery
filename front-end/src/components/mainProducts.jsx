@@ -10,11 +10,14 @@ export default function MainProducts() {
   console.log(products);
   return (
     <div>
-      { products ? products.map((product) => (
+      { products ? products.map((product, index) => (
         <div key={ product.name }>
-          <p>{product.name}</p>
-          <p>{product.price}</p>
-          <img src={ product.url_image } alt={ product.name } />
+          <ProductCard
+            name={ product.name }
+            price={ product.price }
+            url_image={ product.url_image }
+            index={ index }
+          />
         </div>
       )) : null }
     </div>
