@@ -16,13 +16,13 @@ export default function MainProducts() {
   console.log(products);
   return (
     <div className={ styles.mainProduct }>
-      { products ? products.map((product, index) => (
+      { products ? products.map((product) => (
         <div key={ product.name }>
           <ProductCard
             name={ product.name }
             price={ product.price }
             urlImage={ product.url_image }
-            index={ index }
+            id={ product.id }
           />
         </div>
       )) : null }
