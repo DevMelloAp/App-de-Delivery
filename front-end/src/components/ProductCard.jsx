@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styles from '../styles/productCard.module.css';
+import { sendProductsToLocal } from '../utils/cartLocalsotorage';
 
 function ProductCard(props) {
   const { name, price, urlImage, id } = props;
@@ -24,7 +25,10 @@ function ProductCard(props) {
         <button
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
-          onClick={ () => setQuantity(quantity - 1) }
+          onClick={ () => {
+            setQuantity(quantity - 1);
+            sendProductsToLocal({ name, price, urlImage, id, quantity: quantity - 1 });
+          } }
         >
           {' '}
           -
@@ -39,7 +43,10 @@ function ProductCard(props) {
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
-          onClick={ () => setQuantity(quantity + 1) }
+          onClick={ () => {
+            setQuantity(quantity + 1);
+            sendProductsToLocal({ name, price, urlImage, id, quantity: quantity + 1 });
+          } }
         >
           {' '}
           +
