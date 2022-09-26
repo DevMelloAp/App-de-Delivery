@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { requestData } from '../utils/request';
 import ProductCard from './ProductCard';
 import styles from '../styles/productCard.module.css';
+import Checkout from './checkout';
 
 export default function MainProducts() {
   const [products, setProducts] = useState();
@@ -13,7 +14,6 @@ export default function MainProducts() {
   useEffect(() => {
     getProducts();
   }, []);
-  console.log(products);
   return (
     <div className={ styles.mainProduct }>
       { products ? products.map((product) => (
@@ -26,6 +26,7 @@ export default function MainProducts() {
           />
         </div>
       )) : null }
+      <Checkout />
     </div>
   );
 }

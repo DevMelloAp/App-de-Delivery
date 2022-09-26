@@ -1,40 +1,52 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 import styles from '../styles/header.module.css';
-import { getToLocalstorage } from '../utils/userLocalstorage';
+import { getToLocalstorage, removeToLocalstorage } from '../utils/userLocalstorage';
 
 export default function Header() {
   const { name } = getToLocalstorage();
+  console.log(name);
   return (
     <header>
       <nav className={ styles.header }>
         <ul className={ styles.settings }>
-          <li
-            href="customer/products"
+          <Button
+            variant="contained"
+            color="primary"
+            href="/products"
             data-testid="customer_products__element-navbar-link-products"
           >
             PRODUTOS
-          </li>
 
-          <li
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
             href="/orders"
             data-testid="customer_products__element-navbar-link-orders"
           >
             MEUS PEDIDOS
 
-          </li>
-          <li
+          </Button>
+          <span
+            variant="contained"
+            color="primary"
             data-testid="customer_products__element-navbar-user-full-name"
           >
             {name}
-          </li>
+          </span>
 
-          <li
-            href="/logout"
+          <Button
+            variant="contained"
+            color="primary"
+            href="/login"
             data-testid="customer_products__element-navbar-link-logout"
+            onClick={ () => { removeToLocalstorage(); } }
           >
             LOGOUT
 
-          </li>
+          </Button>
         </ul>
       </nav>
     </header>

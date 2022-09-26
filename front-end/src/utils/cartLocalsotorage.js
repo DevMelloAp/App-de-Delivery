@@ -1,46 +1,47 @@
-function sendProductsToLocal(product, name) {
-  const cartLocal = JSON.parse(localStorage.getItem(`carrinho${name}`));
+function sendProductsToLocal(product) {
+  const cartLocal = JSON.parse(localStorage.getItem('carrinho'));
 
-  if (cartLocal) {
+  if (cartLocal === null || cartLocal.length === 0) {
+    localStorage.setItem('carrinho', JSON.stringify([product]));
+  } else {
     const newCartLocal = cartLocal
       .filter((productLocal) => productLocal.id !== product.id);
     newCartLocal.push(product);
-    localStorage.setItem(`carrinho${name}`, JSON.stringify(newCartLocal));
-  } else {
-    localStorage.setItem(`carrinho${name}`, JSON.stringify([cartLocal]));
+    localStorage.setItem('carrinho', JSON.stringify(newCartLocal));
   }
 }
 
-function getProductsToLocal(name) {
-  const cartLocal = JSON.parse(localStorage.getItem(`carrinho${name}`));
+function getProductsToLocal() {
+  const cartLocal = JSON.parse(localStorage.getItem('carrinho'));
 
   if (cartLocal) {
     return cartLocal;
   }
 }
 
-function removeProductsToLocal(product, name) {
-  const cartLocal = JSON.parse(localStorage.getItem(`carrinho${name}`));
+function removeProductsToLocal(product) {
+  const cartLocal = JSON.parse(localStorage.getItem('carrinho'));
   const newCartLocal = cartLocal
     .filter((productLocal) => productLocal.id !== product.id);
 
-  localStorage.setItem(`carrinho${name}`, JSON.stringify(newCartLocal));
+  localStorage.setItem('carrinho', JSON.stringify(newCartLocal));
 }
 
-function removeCartToLocal(name) {
-  localStorage.removeItem(`carrinho${name}`);
+function removeCartToLocal() {
+  localStorage.removeItem('carrinho');
 }
 
-function cartTotal(name) {
-  const cartLocal = JSON.parse(localStorage.getItem(`carrinho${name}`));
+function cartTotal() {
+  const cartLocal = JSON.parse(localStorage.getItem('carrinho'));
 
+  console.log(cartLocal);
   if (cartLocal) {
     const total = cartLocal
       .reduce((acc, curr) => {
-        acc += curr.price * curr.quatity;
+        acc += curr.price * curr.quantity;
         return acc;
       }, 0);
-
+    console.log(total);
     return total;
   }
   return 0.00;
