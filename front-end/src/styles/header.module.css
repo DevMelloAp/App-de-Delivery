@@ -8,6 +8,7 @@
 
 .settings {
   display: flex;
+<<<<<<< HEAD
   justify-content: space-between;
 <<<<<<< HEAD
   text-align: left;
@@ -19,12 +20,15 @@
   width:100%;
 }
 =======
+=======
+>>>>>>> aef8308a1e0b3d4018f57e166d6b513a854e250e
   font-size: large;
-  text-align: left;
+  justify-content: space-between;
   list-style-type: none;
-  text-decoration: none;
   margin-bottom: 10px;
   padding: 5px;
+  text-align: left;
+  text-decoration: none;
   width: 100%;
 }
 >>>>>>> bbaf2c29979d5a9a71e25b49e3f3b3022f4ce794

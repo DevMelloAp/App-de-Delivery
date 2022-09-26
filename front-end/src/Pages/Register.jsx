@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import styles from '../styles/login.module.css';
+import styles from '../styles/register.module.css';
 import { register } from '../utils/request';
 import { sendToLocalstorage } from '../utils/userLocalstorage';
 
@@ -46,7 +46,7 @@ function Register() {
   return (
     <div className={ styles.registerPage }>
       <div className={ styles.content }>
-        <div className={ styles['content-two'] }>
+        <div>
           <p>Nome</p>
           <input
             type="name"
@@ -54,46 +54,46 @@ function Register() {
             value={ name }
             data-testid="common_register__input-name"
             onChange={ (e) => { setName(e.target.value); } }
+          />
+        </div>
+        <div>
+          <p>Email</p>
+          <input
+            type="text"
+            name="email"
+            value={ email }
+            data-testid="common_register__input-email"
+            onChange={ (e) => { setEmail(e.target.value); } }
 
           />
-          <div>
-            <p>Email</p>
-            <input
-              type="text"
-              name="email"
-              value={ email }
-              data-testid="common_register__input-email"
-              onChange={ (e) => { setEmail(e.target.value); } }
+        </div>
+        <div>
+          <p>Senha</p>
+          <input
+            type="text"
+            name="senha"
+            value={ password }
+            data-testid="common_register__input-password"
+            onChange={ (e) => { setPassword(e.target.value); } }
+          />
+        </div>
+        <div className={ styles.contentButtons }>
+          <button
+            type="submit"
+            data-testid="common_register__button-register"
+            disabled={ !enableButton }
+            onClick={ handleRegister }
 
-            />
-            <p>Senha</p>
-            <input
-              type="text"
-              name="senha"
-              value={ password }
-              data-testid="common_register__input-password"
-              onChange={ (e) => { setPassword(e.target.value); } }
-
-            />
-          </div>
-          <div className={ styles.contentButtons }>
-            <button
-              type="submit"
-              data-testid="common_register__button-register"
-              disabled={ !enableButton }
-              onClick={ handleRegister }
-
+          >
+            Cadastre
+          </button>
+          { failedTryRegister ? (
+            <p
+              data-testid="common_register__element-invalid_register"
             >
-              Cadastre
-            </button>
-            { failedTryRegister ? (
-              <p
-                data-testid="common_register__element-invalid_register"
-              >
-                Usuário ja existente
-              </p>
-            ) : null}
-          </div>
+              Usuário ja existente
+            </p>
+          ) : null}
         </div>
       </div>
     </div>

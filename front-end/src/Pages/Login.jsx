@@ -51,7 +51,7 @@ function Login() {
   return (
     <div className={ styles.loginPage }>
       <div className={ styles.content }>
-        <div className={ styles['content-two'] }>
+        <div>
           <p>Login</p>
           <input
             type="email"
