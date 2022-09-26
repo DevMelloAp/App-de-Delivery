@@ -1,7 +1,7 @@
 const { Product } = require('../database/models');
 
 const list = async () => {
-  const products = await Product.findAll({ attributes: { exclude: ['id'] } });
+  const products = await Product.findAll();
 
   return products;
 };
