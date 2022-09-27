@@ -10,7 +10,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Table from '@material-ui/core/Table';
 import Paper from '@material-ui/core/Paper';
-import { cartTotal, getProductsToLocal, removeProductsToLocal }
+import Container from '@material-ui/core/Container';
+import { cartTotal, getProductsToLocal }
   from '../utils/cartLocalsotorage';
 import TableCard from './Table';
 
@@ -51,48 +52,36 @@ function Form() {
     },
   }))(TableCell);
 
+  const tHead = () => (
+    <TableHead>
+      <TableRow>
+        <StyledTableCell align="center" width="50px">Item</StyledTableCell>
+        <StyledTableCell align="center" width="1000px">Descrição</StyledTableCell>
+        <StyledTableCell width="200px">Quantidade</StyledTableCell>
+        <StyledTableCell width="200px">Valor Unitário</StyledTableCell>
+        <StyledTableCell width="200px">Sub-total</StyledTableCell>
+        <StyledTableCell width="200px">Remover Item</StyledTableCell>
+      </TableRow>
+    </TableHead>
+  );
+
   return (
-    <>
+    <Container>
       <TableContainer component={ Paper }>
         <Table className={ classes.table } size="small" aria-label="a dense table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Item</StyledTableCell>
-              <StyledTableCell>Descrição</StyledTableCell>
-              <StyledTableCell>Quantidade</StyledTableCell>
-              <StyledTableCell>Valor Unitário</StyledTableCell>
-              <StyledTableCell>Sub-total</StyledTableCell>
-              <StyledTableCell>Remover Item</StyledTableCell>
-            </TableRow>
-          </TableHead>
           <TableBody>
+            { tHead() }
             { products ? products.map((product, index) => (
               <div key={ product.name }>
-                <div>
-                  <TableCard
-                    name={ product.name }
-                    price={ product.price }
-                    id={ product.id }
-                    quantity={ product.quantity }
-                    index={ index }
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  variant="contained"
-                  width="10px"
-                  color="primary"
-                  disableElevation
-                  data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-                  onClick={ (e) => {
-                    (e.target.parentNode.parentNode).remove();
-                    removeProductsToLocal(product);
-                  } }
-
-                >
-                  Remover
-                </Button>
+                {/*  <div> */}
+                <TableCard
+                  name={ product.name }
+                  price={ product.price }
+                  id={ product.id }
+                  quantity={ product.quantity }
+                  index={ index }
+                  product={ product }
+                />
               </div>
             )) : null }
           </TableBody>
@@ -102,7 +91,7 @@ function Form() {
       <div data-testid="customer_checkout__element-order-total-price">
         Total:
         {' '}
-        { cartTotal() }
+        { (cartTotal()).toFixed(2) }
       </div>
 
       <div> Detalhes e Endereço para Entrega</div>
@@ -150,7 +139,7 @@ function Form() {
       >
         FINALIZAR PEDIDO
       </Button>
-    </>
+    </Container>
   );
 }
 
