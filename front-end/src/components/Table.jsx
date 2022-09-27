@@ -26,7 +26,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 function TableCard(props) {
-  const { name, price, quantity, id, index, product } = props;
+  const { name, price, quantity, index, product } = props;
 
   return (
     <StyledTableRow key={ index }>
@@ -36,7 +36,7 @@ function TableCard(props) {
         }
         width="50px"
       >
-        { id }
+        { index + 1}
 
       </StyledTableCell>
       <StyledTableCell
@@ -70,7 +70,7 @@ function TableCard(props) {
         }
         width="200px"
       >
-        {(quantity * price).toFixed(2)}
+        {(quantity * price).toFixed(2).replace('.', ',')}
 
       </StyledTableCell>
       <StyledTableCell>
@@ -97,7 +97,6 @@ TableCard.propTypes = {
   name: PropTypes.node.isRequired,
   price: PropTypes.node.isRequired,
   quantity: PropTypes.node.isRequired,
-  id: PropTypes.node.isRequired,
   index: PropTypes.node.isRequired,
   product: PropTypes.node.isRequired,
 };
