@@ -8,12 +8,12 @@
 
 .settings {
   display: flex;
-  justify-content: space-between;
   font-size: large;
-  text-align: left;
+  justify-content: space-between;
   list-style-type: none;
-  text-decoration: none;
   margin-bottom: 10px;
   padding: 5px;
+  text-align: left;
+  text-decoration: none;
   width: 100%;
 }
