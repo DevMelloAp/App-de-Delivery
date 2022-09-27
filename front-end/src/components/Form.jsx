@@ -87,9 +87,7 @@ function Form() {
       </TableContainer>
 
       <div data-testid="customer_checkout__element-order-total-price">
-        Total:
-        {' '}
-        { (cartTotal()).toFixed(2) }
+        { (cartTotal()).toFixed(2).replace('.', ',') }
       </div>
 
       <div> Detalhes e Endereço para Entrega</div>
