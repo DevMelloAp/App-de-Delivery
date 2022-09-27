@@ -14,7 +14,7 @@ export default function Checkout() {
   return (
     <div>
       <Button
-        href="/checkout"
+        href="/customer/checkout"
         variant="contained"
         color="primary"
         data-testid="customer_products__checkout-bottom-value"
