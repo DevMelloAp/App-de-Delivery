@@ -1,11 +1,8 @@
 const { configureStore } = require('@reduxjs/toolkit');
-const counterReducer = require('./actions/actions');
+const cartReducer = require('./actions/actions');
 
 const store = configureStore({
-
-  reducer: {
-    counter: counterReducer,
-  },
+  reducer: cartReducer,
 });
 
 module.exports = { store };
