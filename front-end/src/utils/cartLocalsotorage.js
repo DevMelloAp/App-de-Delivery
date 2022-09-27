@@ -34,14 +34,12 @@ function removeCartToLocal() {
 function cartTotal() {
   const cartLocal = JSON.parse(localStorage.getItem('carrinho'));
 
-  console.log(cartLocal);
   if (cartLocal) {
     const total = cartLocal
       .reduce((acc, curr) => {
         acc += curr.price * curr.quantity;
         return acc;
       }, 0);
-    console.log(total);
     return total;
   }
   return 0.00;
