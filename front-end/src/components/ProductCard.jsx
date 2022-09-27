@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styles from '../styles/productCard.module.css';
 import { sendProductsToLocal } from '../utils/cartLocalsotorage';
+
+import { addNewPruduct, getCartTotal } from '../redux/actions/actions';
 
 function ProductCard(props) {
   const { name, price, urlImage, id } = props;
   const numberQuantity = 0;
   const [quantity, setQuantity] = useState(numberQuantity);
+  const dispatch = useDispatch();
 
   return (
     <div className={ styles.productCard }>
@@ -28,6 +32,13 @@ function ProductCard(props) {
           onClick={ () => {
             setQuantity(quantity - 1);
             sendProductsToLocal({ name, price, urlImage, id, quantity: quantity - 1 });
+            dispatch(addNewPruduct({
+              name,
+              price,
+              urlImage,
+              id,
+              quantity: quantity - 1 }));
+            dispatch(getCartTotal());
           } }
         >
           {' '}
@@ -46,6 +57,13 @@ function ProductCard(props) {
           onClick={ () => {
             setQuantity(quantity + 1);
             sendProductsToLocal({ name, price, urlImage, id, quantity: quantity + 1 });
+            dispatch(addNewPruduct({
+              name,
+              price,
+              urlImage,
+              id,
+              quantity: quantity + 1 }));
+            dispatch(getCartTotal());
           } }
         >
           {' '}
