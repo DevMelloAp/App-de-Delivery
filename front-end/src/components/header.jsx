@@ -5,7 +5,6 @@ import { getToLocalstorage, removeToLocalstorage } from '../utils/userLocalstora
 
 export default function Header() {
   const { name } = getToLocalstorage();
-  console.log(name);
   return (
     <header>
       <nav className={ styles.header }>
@@ -13,7 +12,7 @@ export default function Header() {
           <Button
             variant="contained"
             color="primary"
-            href="/products"
+            href="/customer/products"
             data-testid="customer_products__element-navbar-link-products"
           >
             PRODUTOS
