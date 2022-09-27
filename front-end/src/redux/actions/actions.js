@@ -26,6 +26,7 @@ export const cartReducer = createSlice({
             return acc;
           }, 0);
         state.total = total;
+        return;
       }
       state.total = 0;
     },

@@ -12,6 +12,47 @@ function ProductCard(props) {
   const [quantity, setQuantity] = useState(numberQuantity);
   const dispatch = useDispatch();
 
+  const updateQuantityDown = () => {
+    if (quantity > 0) {
+      setQuantity(quantity - 1);
+      sendProductsToLocal({ name, price, urlImage, id, quantity: quantity - 1 });
+      dispatch(addNewPruduct({
+        name,
+        price,
+        urlImage,
+        id,
+        quantity: quantity - 1 }));
+      dispatch(getCartTotal());
+    }
+  };
+
+  const updateQuantityUp = () => {
+    setQuantity(quantity + 1);
+    sendProductsToLocal({ name, price, urlImage, id, quantity: quantity + 1 });
+    dispatch(addNewPruduct({
+      name,
+      price,
+      urlImage,
+      id,
+      quantity: quantity + 1 }));
+    dispatch(getCartTotal());
+  };
+
+  const updateQuantitySet = ({ target }) => {
+    const quantityLocal = target.value;
+    if (quantityLocal > 0) {
+      setQuantity(quantityLocal);
+      sendProductsToLocal({ name, price, urlImage, id, quantity: quantityLocal });
+      dispatch(addNewPruduct({
+        name,
+        price,
+        urlImage,
+        id,
+        quantity: quantityLocal }));
+      dispatch(getCartTotal());
+    }
+  };
+
   return (
     <div className={ styles.productCard }>
       <div data-testid={ `customer_products__element-card-title-${id}` }>
@@ -30,15 +71,7 @@ function ProductCard(props) {
           type="button"
           data-testid={ `customer_products__button-card-rm-item-${id}` }
           onClick={ () => {
-            setQuantity(quantity - 1);
-            sendProductsToLocal({ name, price, urlImage, id, quantity: quantity - 1 });
-            dispatch(addNewPruduct({
-              name,
-              price,
-              urlImage,
-              id,
-              quantity: quantity - 1 }));
-            dispatch(getCartTotal());
+            updateQuantityDown();
           } }
         >
           {' '}
@@ -48,22 +81,15 @@ function ProductCard(props) {
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${id}` }
-          value={ quantity < 0 ? 0 : quantity }
+          value={ quantity }
+          onChange={ (e) => updateQuantitySet(e) }
           className={ styles.inputQuantity }
         />
         <button
           type="button"
           data-testid={ `customer_products__button-card-add-item-${id}` }
           onClick={ () => {
-            setQuantity(quantity + 1);
-            sendProductsToLocal({ name, price, urlImage, id, quantity: quantity + 1 });
-            dispatch(addNewPruduct({
-              name,
-              price,
-              urlImage,
-              id,
-              quantity: quantity + 1 }));
-            dispatch(getCartTotal());
+            updateQuantityUp();
           } }
         >
           {' '}
