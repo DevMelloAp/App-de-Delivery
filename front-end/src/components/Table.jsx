@@ -40,7 +40,7 @@ function TableCard(props) {
 
       </StyledTableCell>
       <StyledTableCell
-        data-testid={ `customer_checkout__element-order-table-item-name-${index}` }
+        data-testid={ `customer_checkout__element-order-table-name-${index}` }
         width="1000px"
       >
         { name }
@@ -48,7 +48,7 @@ function TableCard(props) {
       </StyledTableCell>
       <StyledTableCell
         data-testid={
-          `customer_checkout__element-order-table-item-quantity-${index}`
+          `customer_checkout__element-order-table-quantity-${index}`
         }
         width="200px"
       >
@@ -57,16 +57,16 @@ function TableCard(props) {
       </StyledTableCell>
       <StyledTableCell
         data-testid={
-          `customer_checkout__element-order-table-item-unit-price-${index}`
+          `customer_checkout__element-order-table-unit-price-${index}`
         }
         width="200px"
       >
-        { price }
+        { (price).replace('.', ',') }
 
       </StyledTableCell>
       <StyledTableCell
         data-testid={
-          `customer_checkout__element-order-table-item-sub-total-${index}`
+          `customer_checkout__element-order-table-sub-total-${index}`
         }
         width="200px"
       >

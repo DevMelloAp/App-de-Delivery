@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TableBody from '@material-ui/core/TableBody';
@@ -98,29 +96,27 @@ function Form() {
 
       <form className={ classe.root } noValidate autoComplete="off">
         <div>
-          <TextField
-            select
+          <select
             label="Pessoa Vendedora Responsável"
             value="valor"
             /* onChange={ handleChange } */
-            helperText="Please select your currency"
             data-testid="customer_checkout__select-seller"
           >
-            <MenuItem>
+            <option>
               valor
-            </MenuItem>
-            <MenuItem>
+            </option>
+            <option>
               valor 2
-            </MenuItem>
-          </TextField>
-          <TextField
+            </option>
+          </select>
+          <input
             label="Endereço"
             multiline
             maxRows={ 4 }
             value=""
             data-testid="customer_checkout__input-address"
           />
-          <TextField
+          <input
             /* id="standard-multiline-flexible" */
             label="Número"
             multiline

@@ -2,7 +2,6 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 
-import Checkout from './components/checkout';
 import Login from './Pages/Login';
 import Products from './Pages/Products';
 import Register from './Pages/Register';
