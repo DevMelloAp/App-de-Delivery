@@ -10,6 +10,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Table from '@material-ui/core/Table';
 import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
 import { cartTotal, getProductsToLocal, removeProductsToLocal }
   from '../utils/cartLocalsotorage';
 import TableCard from './Table';
@@ -51,20 +52,24 @@ function Form() {
     },
   }))(TableCell);
 
+  const tHead = () => (
+    <TableHead>
+      <TableRow>
+        <StyledTableCell>Item</StyledTableCell>
+        <StyledTableCell>Descrição</StyledTableCell>
+        <StyledTableCell>Quantidade</StyledTableCell>
+        <StyledTableCell>Valor Unitário</StyledTableCell>
+        <StyledTableCell>Sub-total</StyledTableCell>
+        <StyledTableCell>Remover Item</StyledTableCell>
+      </TableRow>
+    </TableHead>
+  );
+
   return (
-    <>
+    <Container>
       <TableContainer component={ Paper }>
         <Table className={ classes.table } size="small" aria-label="a dense table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Item</StyledTableCell>
-              <StyledTableCell>Descrição</StyledTableCell>
-              <StyledTableCell>Quantidade</StyledTableCell>
-              <StyledTableCell>Valor Unitário</StyledTableCell>
-              <StyledTableCell>Sub-total</StyledTableCell>
-              <StyledTableCell>Remover Item</StyledTableCell>
-            </TableRow>
-          </TableHead>
+          { tHead() }
           <TableBody>
             { products ? products.map((product, index) => (
               <div key={ product.name }>
@@ -150,7 +155,7 @@ function Form() {
       >
         FINALIZAR PEDIDO
       </Button>
-    </>
+    </Container>
   );
 }
 
