@@ -1,0 +1,14 @@
+.ordersPage {
+  align-items: center;
+  display: flex;
+  gap: 2rem;
+  height: 100vh;
+  justify-content: center;
+}
+
+.orderStatus {
+  border: 1px solid black;
+  display: flex;
+  height: 15rem;
+  width: 30rem;
+}

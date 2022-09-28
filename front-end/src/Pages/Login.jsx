@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import styles from '../styles/login.module.css';
 import { requestLogin } from '../utils/request';
 import { sendToLocalstorage } from '../utils/userLocalstorage';
@@ -47,13 +49,17 @@ function Login() {
   }, [email, password]);
 
   if (isLogged && Role === 'customer') return <Navigate to="/customer/products" />;
+  if (isLogged && Role === 'seller') return <Navigate to="/orders" />;
 
   return (
     <div className={ styles.loginPage }>
       <div className={ styles.content }>
         <div>
           <p>Login</p>
-          <input
+          <TextField
+            id="outlined-basic"
+            fullWidth
+            variant="outlined"
             type="email"
             name="email"
             value={ email }
@@ -62,7 +68,10 @@ function Login() {
           />
           <div>
             <p>Password</p>
-            <input
+            <TextField
+              id="outlined-basic"
+              fullWidth
+              variant="outlined"
               type="text"
               name="password"
               value={ password }
@@ -71,14 +80,17 @@ function Login() {
             />
           </div>
           <div className={ styles.contentButtons }>
-            <button
+            <Button
+              variant="contained"
+              color="success"
+              size="large"
               type="submit"
               data-testid="common_login__button-login"
               disabled={ !enableButton }
               onClick={ (e) => { handleLogin(e); } }
             >
               Login
-            </button>
+            </Button>
             { failedTryLogin ? (
               <p
                 data-testid="common_login__element-invalid-email"
@@ -86,13 +98,16 @@ function Login() {
                 Usuário não encontrado
               </p>
             ) : null}
-            <button
+            <Button
+              variant="outlined"
+              color="success"
+              size="large"
               type="submit"
               data-testid="common_login__button-register"
               onClick={ () => navigate('/register') }
             >
               Ainda não tenho conta
-            </button>
+            </Button>
           </div>
         </div>
       </div>
