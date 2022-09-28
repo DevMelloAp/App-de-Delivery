@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import OrdersHeader from '../components/OrdersHeader';
-import OrdersContent from '../components/OrdersContent';
+import OrdersHeader from '../components/SalesOrdersHeader';
+import OrdersContent from '../components/SalesOrdersContent';
 import { requestData } from '../utils/request';
 
-export default function Orders() {
+export default function SalesOrders() {
   const [orders, setOrders] = useState([]);
   const sellerEmail = useSelector((store) => store.user.email);
 

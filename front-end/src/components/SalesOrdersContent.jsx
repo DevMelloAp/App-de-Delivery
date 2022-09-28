@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import styles from '../styles/orders.module.css';
 
-export default function OrdersContent({ id,
+export default function SalesOrdersContent({ id,
   status, date, price, address, addressNumber }) {
   useEffect(() => {
 
@@ -63,7 +63,7 @@ export default function OrdersContent({ id,
   );
 }
 
-OrdersContent.propTypes = {
+SalesOrdersContent.propTypes = {
   address: PropTypes.string.isRequired,
   addressNumber: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,

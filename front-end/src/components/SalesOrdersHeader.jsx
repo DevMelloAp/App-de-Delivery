@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import styles from '../styles/header.module.css';
 import { getToLocalstorage, removeToLocalstorage } from '../utils/userLocalstorage';
 
-export default function OrdersHeader() {
+export default function SalesOrdersHeader() {
   const { name } = getToLocalstorage();
   return (
     <header>
