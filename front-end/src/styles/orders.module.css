@@ -1,14 +1,40 @@
 .ordersPage {
   align-items: center;
   display: flex;
-  gap: 2rem;
+  flex-wrap: wrap;
+  font-size: 2rem;
   height: 100vh;
   justify-content: center;
+  margin: 0;
+  width: 100%;
 }
+
+.status, .date, .price, .address {
+  margin: 0;
+}
+
 
 .orderStatus {
   border: 1px solid black;
+  border-radius: 1rem;
   display: flex;
-  height: 15rem;
-  width: 30rem;
+  gap: 1rem;
+  margin: 0;
+  padding: 2rem;
+  width: 50rem;
+}
+
+.pedido {
+  align-items: center;
+  border-right: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  width: 10rem;
+}
+
+.infos {
+  display: flex;
+  gap: 10px;
+  margin: 0;
 }

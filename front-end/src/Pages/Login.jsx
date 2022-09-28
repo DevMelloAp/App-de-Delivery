@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { useDispatch } from 'react-redux';
 import styles from '../styles/login.module.css';
 import { requestLogin } from '../utils/request';
 import { sendToLocalstorage } from '../utils/userLocalstorage';
+import { setUserEmail } from '../redux/actions/user';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -16,6 +18,7 @@ function Login() {
   const [Role, setRole] = useState('');
 
   const navigate = useNavigate();
+  const dispacth = useDispatch();
 
   useEffect(() => {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,8 +39,8 @@ function Login() {
       sendToLocalstorage({ name, email, token, role });
       // localStorage.setItem('token', token);
       // localStorage.setItem('role', role);
-
       setIsLogged(true);
+      dispacth(setUserEmail(email));
     } catch (error) {
       setFailedTryLogin(true);
       setIsLogged(false);
