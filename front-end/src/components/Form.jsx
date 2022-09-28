@@ -36,7 +36,7 @@ function Form() {
 
   useEffect(() => {
     setProducts(getProductsToLocal());
-  }, []);
+  }, [products]);
 
   const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -71,11 +71,9 @@ function Form() {
             { tHead() }
             { products ? products.map((product, index) => (
               <div key={ product.name }>
-                {/*  <div> */}
                 <TableCard
                   name={ product.name }
                   price={ product.price }
-                  id={ product.id }
                   quantity={ product.quantity }
                   index={ index }
                   product={ product }
@@ -115,7 +113,6 @@ function Form() {
             data-testid="customer_checkout__input-address"
           />
           <input
-            /* id="standard-multiline-flexible" */
             label="Número"
             multiline
             maxRows={ 4 }
