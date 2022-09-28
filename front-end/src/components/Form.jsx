@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,6 +13,8 @@ import Container from '@material-ui/core/Container';
 import { cartTotal, getProductsToLocal }
   from '../utils/cartLocalsotorage';
 import TableCard from './Table';
+import { createSales } from '../utils/request';
+import { getToLocalstorage } from '../utils/userLocalstorage';
 
 const useStyless = makeStyles((theme) => ({
   root: {
@@ -33,10 +36,14 @@ function Form() {
   const classes = useStyles();
 
   const [products, setProducts] = useState('');
+  const [endereço, setEndereço] = useState('');
+  const [numero, setNumero] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setProducts(getProductsToLocal());
-  }, [products]);
+  }, []);
 
   const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -62,6 +69,23 @@ function Form() {
       </TableRow>
     </TableHead>
   );
+
+  const handleOrders = async () => {
+    const user = getToLocalstorage('user');
+    // const itens = cartTotal();
+    console.log(user);
+
+    const data = await createSales('/sales', {
+      userId: user.id,
+      sellerId: 2,
+      totalPrice: cartTotal(),
+      deliveryAddress: endereço,
+      deliveryNumber: numero,
+      status: 'pendente',
+    });
+    console.log(data);
+    return <Navigate to={ `/customer/order/${data.id}` } />;
+  };
 
   return (
     <Container>
@@ -109,14 +133,16 @@ function Form() {
             label="Endereço"
             multiline
             maxRows={ 4 }
-            value=""
+            value={ endereço }
+            onChange={ (e) => { setEndereço(e.target.value); } }
             data-testid="customer_checkout__input-address"
           />
           <input
             label="Número"
             multiline
             maxRows={ 4 }
-            value=""
+            value={ numero }
+            onChange={ (e) => { setNumero(e.target.value); } }
             data-testid="customer_checkout__input-address-number"
           />
         </div>
@@ -125,6 +151,11 @@ function Form() {
         type="submit"
         variant="contained"
         color="primary"
+        onClick={ () => {
+          handleOrders();
+          localStorage.removeItem('carrinho');
+          navigate('/customer/order/:id');
+        } }
         disableElevation
         data-testid="customer_checkout__button-submit-order"
       >
@@ -135,83 +166,3 @@ function Form() {
 }
 
 export default Form;
-
-/* import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 700,
-  },
-});
-
-export default function CustomizedTables() {
-  const classes = useStyles();
-
-  return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-}
- */

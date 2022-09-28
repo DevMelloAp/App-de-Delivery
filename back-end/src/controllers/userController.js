@@ -25,4 +25,16 @@ const loginController = async (req, res) => {
   res.status(StatusCodes.OK).json(userInfo);
 };
 
-module.exports = { create, loginController };
+const list = async (req, res) => {
+  const users = await UserService.list();
+  
+  res.status(201).json(users);
+};
+
+const listSellers = async (req, res) => {
+  const users = await UserService.listSellers();
+  
+  res.status(201).json(users);
+};
+
+module.exports = { create, loginController, list, listSellers };

@@ -33,9 +33,10 @@ function Login() {
 
     try {
       const request = await requestLogin('/login', { email, password });
-      const { name, token, role } = request;
+      console.log(request);
+      const { name, token, role, id } = request;
       setRole(role);
-      sendToLocalstorage({ name, email, token, role });
+      sendToLocalstorage({ id, name, email, token, role });
       // localStorage.setItem('token', token);
       // localStorage.setItem('role', role);
       setIsLogged(true);

@@ -8,8 +8,23 @@ function getToLocalstorage() {
   return info;
 }
 
+function getItensToLocalstorage() {
+  const info = JSON.parse(localStorage.getItem('carrinho'));
+
+  return info;
+}
+
 function removeToLocalstorage() {
   localStorage.removeItem('user');
 }
 
-module.exports = { sendToLocalstorage, getToLocalstorage, removeToLocalstorage };
+function removeItensToLocalstorage() {
+  localStorage.removeItem('carrinho');
+}
+
+module.exports = { sendToLocalstorage,
+  getToLocalstorage,
+  removeToLocalstorage,
+  removeItensToLocalstorage,
+  getItensToLocalstorage,
+};

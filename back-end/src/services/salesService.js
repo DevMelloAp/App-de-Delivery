@@ -13,10 +13,13 @@ const createSalesService = async ({
     totalPrice,
     deliveryAddress, 
     deliveryNumber,
-    status });
-
-    return sales;
+    status }); 
+    
+    console.log("SERVICE", sales);
+    return { ...sales.dataValues, id: sales.null }
 };
+
+
 
 const updateSalesService = async (id, status) => {
   await db.Sale.update({ status }, { where: { id } });

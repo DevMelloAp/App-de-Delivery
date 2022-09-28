@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 
 export default function Checkout() {
   const cartTotal = useSelector((state) => state.product.total);
-  console.log(cartTotal, 'cartTotal');
   useEffect(() => {
 
   }, [cartTotal]);
