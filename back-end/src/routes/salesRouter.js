@@ -7,6 +7,6 @@ const router = Router();
 
 router.post('/', (req, res) => createSalesController(req, res));
 router.put('/', (req, res) => updateSalesController(req, res));
-router.get('/seller', (req, res) => getOrdersBySellerController(req, res));
+router.get('/orders', (req, res) => getOrdersBySellerController(req, res));
 
 module.exports = router; 
