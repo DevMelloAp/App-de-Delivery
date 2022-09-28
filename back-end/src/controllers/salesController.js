@@ -1,4 +1,5 @@
-const { createSalesService, updateSalesService } = require('../services/salesService');
+const { createSalesService,
+  updateSalesService, getOrdersBySellerService } = require('../services/salesService');
 
 const createSalesController = async (req, res) => {
   const { 
@@ -28,4 +29,10 @@ const updateSalesController = async (req, res) => {
   res.status(201).json({ mensage: 'Updated' });
 };
 
-module.exports = { createSalesController, updateSalesController };
+const getOrdersBySellerController = async (req, res) => {
+  const { email } = req.query;
+  const orders = await getOrdersBySellerService(email);
+  return res.status(200).json(orders);
+};
+
+module.exports = { createSalesController, updateSalesController, getOrdersBySellerController };
