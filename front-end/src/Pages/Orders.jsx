@@ -24,11 +24,12 @@ export default function Orders() {
       {orders && orders.map((order) => (
         <OrdersContent
           key={ order.id }
-          pedido={ order.id }
+          id={ order.id }
           status={ order.status }
-          totalPrice={ order.totalPrice }
-          address={ `${order.deliveryAddress}, ${order.deliveryNumber}` }
-          saleDate={ order.saleDate }
+          date={ order.saleDate }
+          price={ order.totalPrice }
+          address={ order.deliveryAddress }
+          addressNumber={ order.deliveryNumber }
         />
       ))}
     </>

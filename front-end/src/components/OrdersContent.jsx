@@ -2,12 +2,19 @@ import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import styles from '../styles/orders.module.css';
 
-export default function OrdersContent(props) {
+export default function OrdersContent({ id,
+  status, date, price, address, addressNumber }) {
   useEffect(() => {
 
   }, []);
 
-  const { pedido, status, totalPrice, address, saleDate } = props;
+  const dataTestId = {
+    id: `seller_orders__element-order-id-${id}`,
+    status: `seller_orders__element-delivery-status-${id}`,
+    date: `seller_orders__element-order-date-${id}`,
+    price: `seller_orders__element-card-price-${id}`,
+    address: `seller_orders__element-card-address-${id}`,
+  };
 
   return (
     <div
@@ -16,40 +23,40 @@ export default function OrdersContent(props) {
       <div className={ styles.orderStatus }>
         <div
           className={ styles.pedido }
-          data-testid={ `seller_orders__element-order-id-${pedido}` }
+          data-testid={ dataTestId.id }
         >
           Pedido:
-          {pedido}
+          {id}
         </div>
         <div className={ styles.infos }>
           <div
-            data-testid={ `seller_orders__element-delivery-status-${pedido}` }
+            data-testid={ dataTestId.status }
             className={ styles.status }
           >
             {status}
           </div>
-
-          <div
-            data-testid={ `seller_orders__element-order-date-${pedido}` }
-            className={ styles.date }
-          >
-            {saleDate}
+          <div className={ styles.datePrice }>
+            <span
+              data-testid={ dataTestId.date }
+              className={ styles.date }
+            >
+              {date}
+            </span>
+            <span
+              data-testid={ dataTestId.price }
+              className={ styles.price }
+            >
+              R$
+              {' '}
+              {price}
+            </span>
           </div>
-          <div
-            data-testid={ `seller_orders__element-card-price-${pedido}` }
-            className={ styles.price }
-          >
-            R$
-            {' '}
-            {totalPrice}
-
-          </div>
-          <div
-            data-testid={ `seller_orders__element-card-address-${pedido}` }
-            className={ styles.address }
-          >
-            {address}
-          </div>
+        </div>
+        <div
+          data-testid={ dataTestId.address }
+          className={ styles.address }
+        >
+          {`${address}, ${addressNumber}`}
         </div>
       </div>
     </div>
@@ -58,8 +65,9 @@ export default function OrdersContent(props) {
 
 OrdersContent.propTypes = {
   address: PropTypes.string.isRequired,
-  pedido: PropTypes.number.isRequired,
-  saleDate: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
-  totalPrice: PropTypes.string.isRequired,
+  addressNumber: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
+  status: PropTypes.bool.isRequired,
 };
