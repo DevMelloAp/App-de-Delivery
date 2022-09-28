@@ -51,7 +51,7 @@ function Login() {
   }, [email, password]);
 
   if (isLogged && Role === 'customer') return <Navigate to="/customer/products" />;
-  if (isLogged && Role === 'seller') return <Navigate to="/orders" />;
+  if (isLogged && Role === 'seller') return <Navigate to="/sales/orders" />;
 
   return (
     <div className={ styles.loginPage }>
@@ -60,7 +60,6 @@ function Login() {
           <p>Login</p>
           <input
             id="outlined-basic"
-            fullWidth
             variant="outlined"
             type="email"
             name="email"
@@ -72,7 +71,6 @@ function Login() {
             <p>Password</p>
             <input
               id="outlined-basic"
-              fullWidth
               variant="outlined"
               type="text"
               name="password"

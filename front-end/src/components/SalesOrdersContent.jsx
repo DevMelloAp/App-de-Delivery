@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import styles from '../styles/orders.module.css';
+import formatDate from '../utils/formatDate';
 
 export default function SalesOrdersContent({ id,
   status, date, price, address, addressNumber }) {
@@ -40,7 +41,7 @@ export default function SalesOrdersContent({ id,
               data-testid={ dataTestId.date }
               className={ styles.date }
             >
-              {date}
+              {formatDate(date)}
             </span>
             <span
               data-testid={ dataTestId.price }
@@ -69,5 +70,5 @@ SalesOrdersContent.propTypes = {
   date: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   price: PropTypes.string.isRequired,
-  status: PropTypes.bool.isRequired,
+  status: PropTypes.string.isRequired,
 };
