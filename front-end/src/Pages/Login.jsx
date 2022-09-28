@@ -59,7 +59,7 @@ function Login() {
       <div className={ styles.content }>
         <div>
           <p>Login</p>
-          <TextField
+          <input
             id="outlined-basic"
             fullWidth
             variant="outlined"
@@ -71,7 +71,7 @@ function Login() {
           />
           <div>
             <p>Password</p>
-            <TextField
+            <input
               id="outlined-basic"
               fullWidth
               variant="outlined"

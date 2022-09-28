@@ -23,7 +23,7 @@ const updateSalesService = async (id, status) => {
 const getOrdersBySellerService = async (email) => {
   const { id } = await db.User.findOne({ where: { email } });
   const sellerId = id;
-  const orders = await db.Sale.findAll({ where: { sellerId } });
+  const orders = await db.Sale.findAll({ where: { sellerId }, limit: 10 });
   return orders;
 };
 
