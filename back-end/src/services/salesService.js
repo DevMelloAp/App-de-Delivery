@@ -13,9 +13,8 @@ const createSalesService = async ({
     totalPrice,
     deliveryAddress, 
     deliveryNumber,
-    status });
+    status }); 
     
-    //  
     console.log("SERVICE", sales);
     return { ...sales.dataValues, id: sales.null }
 };
@@ -26,4 +25,11 @@ const updateSalesService = async (id, status) => {
   await db.Sale.update({ status }, { where: { id } });
 };
 
-module.exports = { createSalesService, updateSalesService };
+const getOrdersBySellerService = async (email) => {
+  const { id } = await db.User.findOne({ where: { email } });
+  const sellerId = id;
+  const orders = await db.Sale.findAll({ where: { sellerId }, limit: 10 });
+  return orders;
+};
+
+module.exports = { createSalesService, updateSalesService, getOrdersBySellerService };
