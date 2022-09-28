@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import styles from '../styles/productCard.module.css';
 import { sendProductsToLocal } from '../utils/cartLocalsotorage';
 
-import { addNewPruduct, getCartTotal } from '../redux/actions/actions';
+import { addNewPruduct, getCartTotal } from '../redux/actions/products';
 
 function ProductCard(props) {
   const { name, price, urlImage, id } = props;
