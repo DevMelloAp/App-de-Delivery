@@ -9,7 +9,7 @@ const createSalesController = async (req, res) => {
     deliveryNumber,
     status } = req.body;
  
-   await createSalesService({ 
+  const sales = await createSalesService({ 
     userId,
     sellerId, 
     totalPrice,
@@ -17,7 +17,7 @@ const createSalesController = async (req, res) => {
     deliveryNumber,
     status });
 
-  res.status(201).json({ mensage: 'Created' });
+  res.status(201).json(sales);
 };
 
 const updateSalesController = async (req, res) => {

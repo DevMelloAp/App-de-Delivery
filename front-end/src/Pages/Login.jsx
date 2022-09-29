@@ -47,6 +47,7 @@ function Login() {
   }, [email, password]);
 
   if (isLogged && Role === 'customer') return <Navigate to="/customer/products" />;
+  if (isLogged && Role === 'administrator') return <Navigate to="/admin/manage" />;
 
   return (
     <div className={ styles.loginPage }>
