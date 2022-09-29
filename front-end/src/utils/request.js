@@ -23,8 +23,10 @@ export const register = async (endpoint, body) => {
   return data;
 };
 
-export const createSales = async (endpoint, body) => {
-  const { data } = await api.post(endpoint, body);
+export const createSales = async (endpoint, body, token) => {
+  const headers = { headers: { Authorization: token } };
+  const { data } = await api.post(endpoint, body, headers);
+
   return data;
 };
 

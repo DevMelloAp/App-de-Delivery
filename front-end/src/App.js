@@ -21,7 +21,6 @@ function App() {
       <Route exact path="/customer/checkout" element={ <Checkout /> } />
       <Route exact path="/admin/manage" element={ <Administrator /> } />
       <Route exact path="/customer/order/:id" element={ <Orders /> } />
-
     </Routes>
   );
 }

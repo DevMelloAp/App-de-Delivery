@@ -2,11 +2,6 @@ const sequelize = require("sequelize");
 
 const User = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    id: { 
-      type:DataTypes.INTEGER,
-      primaryKey: true,
-      allowNull: true,
-    },
     name: DataTypes.STRING,
     role: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -14,11 +9,12 @@ const User = (sequelize, DataTypes) => {
   }, {
     tableName: 'users',
     timestamps: false,
+    underscored: true
   });
 
   User.associate = (model) => {
-    User.hasMany(model.Sale, { as: 'userSale', foreignKey: 'user_id' });
-    User.hasMany(model.Sale, { as: 'sellerSale', foreignKey: 'seller_id' });
+    User.hasMany(model.Sale, { as: 'userSale', foreignKey: 'userId' });
+    User.hasMany(model.Sale, { as: 'sellerSale', foreignKey: 'sellerId' });
 
   }
 

@@ -43,7 +43,7 @@ const loginService = async (email, password) => {
 
   const token = JwtServiceSign({ id: userDB.id, email: userDB.email });
 
-  return {id: userDB.id, name: userDB.name, email: userDB.email, role: userDB.role, token };
+  return { id: userDB.id, name: userDB.name, email: userDB.email, role: userDB.role, token };
 };
 
 const list = async () => {
