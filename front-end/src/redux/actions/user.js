@@ -1,6 +1,6 @@
 import { SET_EMAIL } from './actionsTypes';
 
-export const setEmail = (data) => ({
+export const setUserEmail = (data) => ({
   type: SET_EMAIL,
   data,
 });

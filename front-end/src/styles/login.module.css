@@ -7,9 +7,10 @@
 }
 
 .content {
+  background-color: rgb(234, 241, 239);
   border: 1px solid black;
   display: flex;
-  height: 30rem;
+  height: fit-content;
   padding: 2rem 4rem;
   width: 32rem;
 }
