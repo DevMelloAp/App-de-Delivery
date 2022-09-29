@@ -1,10 +1,10 @@
-const { JwtServiceSignDecode } = require('../services/JwtService');
 const { createSalesService, updateSalesService } = require('../services/salesService');
 
 const createSalesController = async (req, res) => {
   const data = req.body;
  
     const token = req.headers.Authorization;
+    console.log(token);
     // const validateToken = JwtServiceSignDecode(token);
 
     // if(!validateToken) {
@@ -12,10 +12,9 @@ const createSalesController = async (req, res) => {
     //   e.name = 'NotFoundError';
     //   throw e; 
     // }
-   const sale = await createSalesService( data );
+   const sale = await createSalesService(data);
 
-  res.status(201).json(sale);
-  
+  res.status(201).json(sale);  
 };
 
 const updateSalesController = async (req, res) => {

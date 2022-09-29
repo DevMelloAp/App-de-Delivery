@@ -1,13 +1,10 @@
-const {salesProduct, Sale } = require('../database/models');
+const { SalesProduct, Sale } = require('../database/models');
 
 const createSalesService = async ({ 
-  userId,
-  sellerId, 
-  totalPrice,
-  deliveryAddress, 
-  deliveryNumber,
-  status,
-  productsList
+  userId, sellerId, 
+  totalPrice, deliveryAddress, 
+  deliveryNumber, status,
+  productsList,
   }) => {
   const sales = await Sale.create({ 
     userId,
@@ -17,23 +14,14 @@ const createSalesService = async ({
     deliveryNumber,
     status,
  });
-  const productListWithId = productsList
-  .map((product) => ({sale_id: sales.null, product_id: product.productId, quantity: product.quantity}) )
-  
-  console.log('PRIMEIRO============', productListWithId);
-
-  const createSalesProduct = await Promise.all(productListWithId.map(async(product) => await salesProduct.create(product)));
-  console.log('================', createSalesProduct);
-     
-    return { ...sales.dataValues, id: sales.null }
+ productsList.forEach(async (p) => SalesProduct
+  .create({ saleId: sales.id, productId: p.productId, quantity: p.quantity }));
+      
+  return sales;
 };
 
-
-
-
-
 const updateSalesService = async (id, status) => {
-  await db.Sale.update({ status }, { where: { id } });
+  await Sale.update({ status }, { where: { id } });
 };
 
 module.exports = { createSalesService, updateSalesService };

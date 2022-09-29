@@ -2,11 +2,6 @@ const sequelize = require("sequelize");
 
 const Sale = (sequelize, DataTypes) => {
   const Sale = sequelize.define('Sale', {
-    id: { 
-      type:DataTypes.INTEGER,
-      primaryKey: true,
-      allowNull: true,
-    },
     userId: DataTypes.INTEGER,
     sellerId: DataTypes.INTEGER,
     totalPrice: DataTypes.DECIMAL,
@@ -21,10 +16,8 @@ const Sale = (sequelize, DataTypes) => {
   });
 
   Sale.associate = (model) => {
-    Sale.belongsTo(model.User, { as: 'userSale', foreignKey: 'user_id' });
-    Sale.belongsTo(model.User, { as: 'sellerSale', foreignKey: 'seller_id' });
-
-
+    Sale.belongsTo(model.User, { as: 'userSale', foreignKey: 'userId' });
+    Sale.belongsTo(model.User, { as: 'sellerSale', foreignKey: 'sellerId' });
   }
 
   return Sale;
