@@ -11,6 +11,7 @@ const createSalesController = async (req, res) => {
     status } = req.body;
  
    const sale = await createSalesService({ 
+
     userId,
     sellerId, 
     totalPrice,

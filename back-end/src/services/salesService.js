@@ -7,6 +7,7 @@ const createSalesService = async ({
   deliveryAddress, 
   deliveryNumber,
   status }) => {
+
   const sales = await db.Sale.create({ 
     userId,
     sellerId, 

@@ -2,6 +2,8 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 
+import Administrator from './Pages/Administrator';
+import Checkout from './Pages/Checkout';
 import Login from './Pages/Login';
 import Products from './Pages/Products';
 import Register from './Pages/Register';
@@ -17,6 +19,7 @@ function App() {
       <Route exact path="/login" element={ <Login /> } />
       <Route exact path="/register" element={ <Register /> } />
       <Route exact path="/customer/checkout" element={ <Checkout /> } />
+      <Route exact path="/admin/manage" element={ <Administrator /> } />
       <Route exact path="/customer/order/:id" element={ <Orders /> } />
 
     </Routes>

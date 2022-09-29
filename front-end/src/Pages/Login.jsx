@@ -52,6 +52,9 @@ function Login() {
   }, [email, password]);
 
   if (isLogged && Role === 'customer') return <Navigate to="/customer/products" />;
+
+  if (isLogged && Role === 'administrator') return <Navigate to="/admin/manage" />;
+
   if (isLogged && Role === 'seller') return <Navigate to="/sales/orders" />;
 
   return (
