@@ -5,7 +5,7 @@ const createSalesService = async ({
   totalPrice, deliveryAddress, 
   deliveryNumber, status,
   productsList,
-  }) => {
+}) => {
   const sales = await Sale.create({ 
     userId,
     sellerId, 
@@ -24,4 +24,11 @@ const updateSalesService = async (id, status) => {
   await Sale.update({ status }, { where: { id } });
 };
 
-module.exports = { createSalesService, updateSalesService };
+const getOrdersBySellerService = async (email) => {
+  const { id } = await db.User.findOne({ where: { email } });
+  const sellerId = id;
+  const orders = await db.Sale.findAll({ where: { sellerId }, limit: 10 });
+  return orders;
+};
+
+module.exports = { createSalesService, updateSalesService, getOrdersBySellerService };
