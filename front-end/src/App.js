@@ -5,9 +5,9 @@ import './App.css';
 import Administrator from './Pages/Administrator';
 import Checkout from './Pages/Checkout';
 import Login from './Pages/Login';
+import Orders from './Pages/orders';
 import Products from './Pages/Products';
 import Register from './Pages/Register';
-import Checkout from './Pages/Checkout';
 import SalesOrders from './Pages/SalesOrders';
 
 function App() {

@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { getCartTotal, removeProduct } from '../redux/actions/products';
 import { removeProductsToLocal } from '../utils/cartLocalsotorage';
 
 const StyledTableCell = withStyles((theme) => ({
@@ -26,6 +28,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 function TableCard(props) {
+  const dispatch = useDispatch();
   const { name, price, quantity, index, product } = props;
 
   return (
@@ -81,9 +84,11 @@ function TableCard(props) {
           color="primary"
           disableElevation
           data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-          onClick={ (e) => {
-            (e.target.parentNode.parentNode.parentNode).remove();
+          onClick={ () => {
+            // (e.target.parentNode.parentNode.parentNode).remove();
             removeProductsToLocal(product);
+            dispatch(removeProduct(product));
+            dispatch(getCartTotal());
           } }
         >
           Remover
