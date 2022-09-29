@@ -1,24 +1,21 @@
+const { JwtServiceSignDecode } = require('../services/JwtService');
 const { createSalesService, updateSalesService } = require('../services/salesService');
 
 const createSalesController = async (req, res) => {
-  const { 
-    userId,
-    sellerId, 
-    totalPrice,
-    deliveryAddress, 
-    deliveryNumber,
-    status } = req.body;
+  const data = req.body;
  
-   const sale = await createSalesService({ 
-    userId,
-    sellerId, 
-    totalPrice,
-    deliveryAddress, 
-    deliveryNumber,
-    status });
+    const token = req.headers.Authorization;
+    // const validateToken = JwtServiceSignDecode(token);
 
-    console.log(sale);
+    // if(!validateToken) {
+    //   const e = new Error('Invalid token');
+    //   e.name = 'NotFoundError';
+    //   throw e; 
+    // }
+   const sale = await createSalesService( data );
+
   res.status(201).json(sale);
+  
 };
 
 const updateSalesController = async (req, res) => {

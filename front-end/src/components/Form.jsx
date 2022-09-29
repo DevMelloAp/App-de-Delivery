@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TableBody from '@material-ui/core/TableBody';
@@ -72,8 +72,11 @@ function Form() {
 
   const handleOrders = async () => {
     const user = getToLocalstorage('user');
-    // const itens = cartTotal();
-    console.log(user);
+    const itens = getProductsToLocal();
+    console.log('==============', itens);
+    const idAndQuantity = itens
+      .map((item) => ({ productId: item.id, quantity: item.quantity }));
+    console.log('idQTd================', idAndQuantity);
 
     const data = await createSales('/sales', {
       userId: user.id,
@@ -81,12 +84,12 @@ function Form() {
       totalPrice: cartTotal(),
       deliveryAddress: endereço,
       deliveryNumber: numero,
-      status: 'pendente',
-    });
-    console.log(data);
-    return <Navigate to={ `/customer/order/${data.id}` } />;
-  };
+      status: 'Pendente',
+      productsList: idAndQuantity,
+    }, user.token);
 
+    return navigate(`/customer/orders/${data.id}`);
+  };
   return (
     <Container>
       <TableContainer component={ Paper }>
@@ -154,7 +157,6 @@ function Form() {
         onClick={ () => {
           handleOrders();
           localStorage.removeItem('carrinho');
-          navigate('/customer/order/:id');
         } }
         disableElevation
         data-testid="customer_checkout__button-submit-order"
