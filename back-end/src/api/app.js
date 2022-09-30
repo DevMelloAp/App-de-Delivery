@@ -4,6 +4,9 @@ const cors = require('cors');
 const express = require('express');
 
 const userRouter = require('../routes/userRoutes');
+const usersRouter = require('../routes/usersRoutes');
+const sellersRouter = require('../routes/sellersRoutes');
+
 const loginRouter = require('../routes/loginRoutes');
 
 const salesRouter = require('../routes/salesRouter');
@@ -29,6 +32,8 @@ app.use(express.json());
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use('/login', loginRouter);
 app.use('/register', userRouter);
+app.use('/users', usersRouter);
+app.use('/sellers', sellersRouter);
 
 app.use('/sales', salesRouter);
 app.use('/orders', orderRouter);

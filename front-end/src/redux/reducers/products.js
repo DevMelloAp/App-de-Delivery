@@ -23,6 +23,13 @@ const productReducer = (state = initialState, action) => {
       };
     }
     return { ...state, total: 0 };
+  case 'REMOVE_PRODUCT':
+    if (state.cart.length === 0) {
+      return { ...state, cart: [action.data] };
+    }
+    return { ...state,
+      cart: [...state.cart
+        .filter((productCart) => productCart.id !== action.data.id)] };
   default:
     return state;
   }

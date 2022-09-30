@@ -1,9 +1,10 @@
-const { createSalesService, updateSalesService } = require('../services/salesService');
+const { createSalesService,
+  updateSalesService, getOrdersBySellerService } = require('../services/salesService');
 
 const createSalesController = async (req, res) => {
   const data = req.body;
  
-    const token = req.headers.Authorization;
+ const token = req.headers.Authorization;
     console.log(token);
     // const validateToken = JwtServiceSignDecode(token);
 
@@ -25,5 +26,10 @@ const updateSalesController = async (req, res) => {
   res.status(201).json({ mensage: 'Updated' });
 };
 
+const getOrdersBySellerController = async (req, res) => {
+  const { email } = req.query;
+  const orders = await getOrdersBySellerService(email);
+  return res.status(200).json(orders);
+};
 
-module.exports = { createSalesController, updateSalesController };
+module.exports = { createSalesController, updateSalesController, getOrdersBySellerController };
