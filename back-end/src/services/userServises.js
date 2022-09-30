@@ -1,7 +1,6 @@
+const { Op } = require('sequelize');
 const md5 = require('md5');
 const { User } = require('../database/models');
-const { Op } = require('sequelize');
-
 const userValidate = require('../middlewares/userValidate');
 const registerValidate = require('../middlewares/registerValidate');
 const db = require('../database/models');
@@ -47,13 +46,14 @@ const loginService = async (email, password) => {
 };
 
 const list = async () => {
-  const users = await User.findAll( { where: { [Op.or]: [{ role: 'customer'}, { role: 'seller'}] } });
+  const users = await User
+  .findAll({ where: { [Op.or]: [{ role: 'customer' }, { role: 'seller' }] } });
   
   return users;
 };
 
 const listSellers = async () => {
-  const users = await User.findAll( { where: {  role: 'seller'} });
+  const users = await User.findAll({ where: { role: 'seller' } });
   
   return users;
 };

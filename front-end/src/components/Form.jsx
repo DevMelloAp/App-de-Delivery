@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Table from '@material-ui/core/Table';
-import Paper from '@material-ui/core/Paper';
-import Container from '@material-ui/core/Container';
-import { cartTotal, getProductsToLocal }
-  from '../utils/cartLocalsotorage';
-import TableCard from './Table';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { cartTotal } from '../utils/cartLocalsotorage';
 import { createSales } from '../utils/request';
 import { getToLocalstorage } from '../utils/userLocalstorage';
+import TableCard from './Table';
 
 const useStyless = makeStyles((theme) => ({
   root: {
@@ -38,12 +38,24 @@ function Form() {
   const [products, setProducts] = useState('');
   const [endereço, setEndereço] = useState('');
   const [numero, setNumero] = useState('');
+  const [totalCart, setTotalCart] = useState('');
+  const itens = useSelector((state) => state.product.cart);
+  const total = useSelector((state) => state.product.total);
 
+  console.log(itens, 'itens------------------------------------');
+  console.log(totalCart, 'totalCart------------------------------------');
   const navigate = useNavigate();
 
   useEffect(() => {
-    setProducts(getProductsToLocal());
+    setProducts(itens);
+    setTotalCart(total);
   }, []);
+
+  useEffect(() => {
+    setProducts(itens);
+    setTotalCart(total);
+    // setProducts(getProductsToLocal());
+  }, [itens]);
 
   const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -72,11 +84,9 @@ function Form() {
 
   const handleOrders = async () => {
     const user = getToLocalstorage('user');
-    const itens = getProductsToLocal();
-    console.log('==============', itens);
+    // const itens = getProductsToLocal();
     const idAndQuantity = itens
       .map((item) => ({ productId: item.id, quantity: item.quantity }));
-    console.log('idQTd================', idAndQuantity);
 
     const data = await createSales('/sales', {
       userId: user.id,
@@ -112,7 +122,8 @@ function Form() {
       </TableContainer>
 
       <div data-testid="customer_checkout__element-order-total-price">
-        { (cartTotal()).toFixed(2).replace('.', ',') }
+        { (+totalCart).toFixed(2).replace('.', ',') }
+        {/* { (cartTotal()).toFixed(2).replace('.', ',') } */}
       </div>
 
       <div> Detalhes e Endereço para Entrega</div>
