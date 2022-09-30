@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       user_id: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: "users",
@@ -21,7 +21,7 @@ module.exports = {
         }   
       },
       seller_id: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model:  "users", 
@@ -29,24 +29,24 @@ module.exports = {
         },        
       },
       total_price: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DECIMAL(9,2)
       },
       delivery_address: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },
       delivery_number: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       }, 
       sale_date: {
-        allowNull: true,
+        allowNull: false,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP()"),
         type: Sequelize.DATE
       },  
       status: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },     
     })

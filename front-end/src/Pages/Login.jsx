@@ -55,7 +55,7 @@ function Login() {
 
   if (isLogged && Role === 'administrator') return <Navigate to="/admin/manage" />;
 
-  if (isLogged && Role === 'seller') return <Navigate to="/sales/orders" />;
+  if (isLogged && Role === 'seller') return <Navigate to="/seller/orders" />;
 
   return (
     <div className={ styles.loginPage }>
