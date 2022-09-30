@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from '../styles/login.module.css';
 import { requestLogin } from '../utils/request';
 import { sendToLocalstorage } from '../utils/userLocalstorage';
@@ -47,7 +47,9 @@ function Login() {
     setFailedTryLogin(false);
   }, [email, password]);
 
-  if (isLogged && Role === 'customer') return <Navigate to="/customer/products" />;
+  if (isLogged && Role === 'customer') return navigate('/customer/products');
+  if (isLogged && Role === 'seller') return navigate('/seller/products');
+  if (isLogged && Role === 'admin') return navigate('/admin/products');
 
   return (
     <div className={ styles.loginPage }>

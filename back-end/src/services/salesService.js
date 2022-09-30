@@ -24,4 +24,5 @@ const updateSalesService = async (id, status) => {
   await Sale.update({ status }, { where: { id } });
 };
 
+
 module.exports = { createSalesService, updateSalesService };

@@ -25,4 +25,5 @@ const updateSalesController = async (req, res) => {
   res.status(201).json({ mensage: 'Updated' });
 };
 
+
 module.exports = { createSalesController, updateSalesController };
