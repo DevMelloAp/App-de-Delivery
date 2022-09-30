@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import styles from '../styles/orderCard.module.css';
+import formatDate from '../utils/formatDate';
 
 function OrdersCard(props) {
   const navigate = useNavigate();
@@ -28,10 +29,10 @@ function OrdersCard(props) {
           { status }
         </div>
         <div data-testid={ `customer_orders__element-order-date-${id}` }>
-          { data }
+          { formatDate(data) }
         </div>
         <div data-testid={ `customer_orders__element-card-price-${id}` }>
-          { totalPrice }
+          { totalPrice.replace(/\./, ',') }
         </div>
       </div>
     </Grid>

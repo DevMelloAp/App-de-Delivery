@@ -3,11 +3,11 @@
   background-color: rgba(21, 35, 163, 0.836);
   border-radius: 8rem;
   border-style: solid;
-  color:white;
+  color: white;
   display: flex;
   font-size: x-large;
   justify-content: space-around;
-  margin:2rem;
+  margin: 2rem;
   padding: 2rem 4rem;
   width: 90%;
 }
