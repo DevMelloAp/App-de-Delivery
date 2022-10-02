@@ -3,27 +3,31 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Header from '../components/header';
 import { getOrderByUser } from '../utils/request';
+import formatDate from '../utils/formatDate';
 
 function Orders() {
   const [sales, setSales] = useState([]);
-  const [seller, setSeller] = useState('');
+  const [date, setDate] = useState('');
+  // const [seller, setSeller] = useState('');
   const [status, setStatus] = useState('Pendente');
   const [totalCart, setTotalCart] = useState('');
   const [products, setProducts] = useState([]);
   const itens = useSelector((state) => state.product.cart);
   const total = useSelector((state) => state.product.total);
-  const sellerOrder = useSelector((state) => state.product.seller);
+  // const sellerOrder = useSelector((state) => state.product.seller);
 
   const { id } = useParams();
 
   useEffect(() => {
     setProducts(itens);
     setTotalCart(total);
-    setSeller(sellerOrder);
+    // setSeller(sellerOrder);
     async function fetchData() {
       try {
         const salesList = await getOrderByUser('/orders/', id);
         setSales(salesList);
+        const { saleDate } = salesList;
+        setDate(formatDate(saleDate));
       } catch (err) {
         console.log(err);
       }
@@ -31,10 +35,12 @@ function Orders() {
     fetchData();
   }, []);
 
-  console.log(sellerOrder);
+  /* console.log(sellerOrder);
   console.log(seller);
   console.log(sales);
-  console.log(totalCart);
+  console.log(totalCart); */
+
+  console.log(sales.saleDate);
   return (
     <div>
       <Header />
@@ -48,13 +54,13 @@ function Orders() {
       <div
         data-testid="customer_order_details__element-order-details-label-seller-name"
       >
-        { seller }
+        Fulana Pereira
 
       </div>
       <div
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        { sales.saleDate }
+        { date }
 
       </div>
       <div

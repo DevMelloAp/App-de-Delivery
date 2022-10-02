@@ -89,7 +89,12 @@ function Form() {
     </TableHead>
   );
 
+  console.log('sellers ===>', sellers);
+  console.log('seller ===>', seller);
+
   const [idSeller] = sellers.filter((s) => s.name === seller).map((it) => it.id);
+
+  console.log('idSeller ===> ', idSeller);
 
   const handleOrders = async () => {
     const user = getToLocalstorage('user');
@@ -97,19 +102,15 @@ function Form() {
     const idAndQuantity = itens
       .map((item) => ({ productId: item.id, quantity: item.quantity }));
 
-    const order = {
+    const data = await createSales('/sales', {
       userId: user.id,
-      sellerId: idSeller,
+      sellerId: 2,
       totalPrice: cartTotal(),
       deliveryAddress: endereço,
       deliveryNumber: numero,
       status: 'Pendente',
       productsList: idAndQuantity,
-    };
-
-    console.log('order -----> ', order);
-
-    const data = await createSales('/sales', order, user.token);
+    }, user.token);
 
     console.log('data ----> ', data);
 
