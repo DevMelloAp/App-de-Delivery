@@ -1,9 +1,15 @@
-const OrderService = require('../services/orderService');
+const { list, getOrdersByUserService } = require('../services/orderService');
 
-const list = async (_req, res) => {
-  const orders = await OrderService.list();
+const listController = async (_req, res) => {
+  const orders = await list();
 
   res.status(201).json(orders);
 };
 
-module.exports = { list };
+const getOrdersByUserController = async (req, res) => {
+  const orders = await getOrdersByUserService(req.query.id);
+  
+  return res.status(201).json(orders);
+};
+
+module.exports = { listController, getOrdersByUserController };

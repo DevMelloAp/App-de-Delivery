@@ -21,7 +21,8 @@ function Orders() {
     setTotalCart(total);
     async function fetchData() {
       try {
-        const salesList = await getOrderByUser('/orders/', id);
+        const salesList = await getOrderByUser('/orders/:id', id);
+        console.log(salesList);
         setSales(salesList);
         const { saleDate } = salesList;
         setDate(formatDate(saleDate));

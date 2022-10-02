@@ -1,4 +1,4 @@
-const { Sale } = require('../database/models');
+const { Sale, User, Product } = require('../database/models');
 
 const list = async () => {
   const order = await Sale.findAll();
@@ -6,4 +6,16 @@ const list = async () => {
   return order;
 };
 
- module.exports = { list };
+const getOrdersByUserService = async (idSale) => {
+  const orders = await Sale.findByPk(idSale, {
+    include: [
+      { model: User, as: 'sellerSale' },
+      { model: Product, as: 'products' },
+    ],
+  
+  });
+  
+  return orders;
+};
+
+ module.exports = { list, getOrdersByUserService };
