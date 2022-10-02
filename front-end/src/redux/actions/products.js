@@ -1,4 +1,4 @@
-import { ADD_PRODUCT, GET_TOTAL, REMOVE_PRODUCT, ADD_SELLER } from './actionsTypes';
+import { ADD_PRODUCT, GET_TOTAL, REMOVE_PRODUCT } from './actionsTypes';
 
 export const addNewPruduct = (data) => ({
   type: ADD_PRODUCT,
@@ -11,10 +11,5 @@ export const getCartTotal = () => ({
 
 export const removeProduct = (data) => ({
   type: REMOVE_PRODUCT,
-  data,
-});
-
-export const addSeller = (data) => ({
-  type: ADD_SELLER,
   data,
 });

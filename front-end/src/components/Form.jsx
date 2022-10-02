@@ -9,13 +9,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { cartTotal } from '../utils/cartLocalsotorage';
 import { createSales, requestData } from '../utils/request';
 import { getToLocalstorage } from '../utils/userLocalstorage';
 import TableCard from './Table';
-import { addSeller } from '../redux/actions/products';
 
 const useStyless = makeStyles((theme) => ({
   root: {
@@ -35,7 +34,6 @@ const useStyles = makeStyles({
 function Form() {
   const classe = useStyless();
   const classes = useStyles();
-  const dispatch = useDispatch();
   const [seller, setSeller] = useState('');
   const [sellers, setSellers] = useState([]);
   const [products, setProducts] = useState('');
@@ -89,13 +87,6 @@ function Form() {
     </TableHead>
   );
 
-  console.log('sellers ===>', sellers);
-  console.log('seller ===>', seller);
-
-  const [idSeller] = sellers.filter((s) => s.name === seller).map((it) => it.id);
-
-  console.log('idSeller ===> ', idSeller);
-
   const handleOrders = async () => {
     const user = getToLocalstorage('user');
     // const itens = getProductsToLocal();
@@ -111,8 +102,6 @@ function Form() {
       status: 'Pendente',
       productsList: idAndQuantity,
     }, user.token);
-
-    console.log('data ----> ', data);
 
     return navigate(`/customer/orders/${data.id}`);
   };
@@ -184,7 +173,6 @@ function Form() {
         onClick={ () => {
           handleOrders();
           localStorage.removeItem('carrinho');
-          dispatch(addSeller(seller));
         } }
         disableElevation
         data-testid="customer_checkout__button-submit-order"

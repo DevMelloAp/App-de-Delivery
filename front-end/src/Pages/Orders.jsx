@@ -8,20 +8,17 @@ import formatDate from '../utils/formatDate';
 function Orders() {
   const [sales, setSales] = useState([]);
   const [date, setDate] = useState('');
-  // const [seller, setSeller] = useState('');
   const [status, setStatus] = useState('Pendente');
   const [totalCart, setTotalCart] = useState('');
   const [products, setProducts] = useState([]);
   const itens = useSelector((state) => state.product.cart);
   const total = useSelector((state) => state.product.total);
-  // const sellerOrder = useSelector((state) => state.product.seller);
 
   const { id } = useParams();
 
   useEffect(() => {
     setProducts(itens);
     setTotalCart(total);
-    // setSeller(sellerOrder);
     async function fetchData() {
       try {
         const salesList = await getOrderByUser('/orders/', id);
@@ -34,11 +31,6 @@ function Orders() {
     }
     fetchData();
   }, []);
-
-  /* console.log(sellerOrder);
-  console.log(seller);
-  console.log(sales);
-  console.log(totalCart); */
 
   console.log(sales.saleDate);
   return (
