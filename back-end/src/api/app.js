@@ -6,9 +6,7 @@ const express = require('express');
 const userRouter = require('../routes/userRoutes');
 const usersRouter = require('../routes/usersRoutes');
 const sellersRouter = require('../routes/sellersRoutes');
-
 const loginRouter = require('../routes/loginRoutes');
-
 const salesRouter = require('../routes/salesRouter');
 const orderRouter = require('../routes/orderRoutes');
 
