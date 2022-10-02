@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import styles from '../styles/login.module.css';
 import { requestLogin } from '../utils/request';
-import { sendToLocalstorage } from '../utils/userLocalstorage';
+import { sendToLocalstorage, getToLocalstorage } from '../utils/userLocalstorage';
 import { setUserEmail } from '../redux/actions/user';
 
 function Login() {
@@ -51,11 +51,14 @@ function Login() {
     setFailedTryLogin(false);
   }, [email, password]);
 
-  if (isLogged && Role === 'customer') return <Navigate to="/customer/products" />;
-
-  if (isLogged && Role === 'administrator') return <Navigate to="/admin/manage" />;
-
-  if (isLogged && Role === 'seller') return <Navigate to="/sales/orders" />;
+  const currentRole = getToLocalstorage();
+  if (currentRole && currentRole.role) {
+    if (currentRole?.role === 'customer') return <Navigate to="/customer/products" />;
+    if (currentRole?.role === 'seller') return <Navigate to="/seller/products" />;
+    if (currentRole?.role === 'admin') return <Navigate to="/admin/manage" />;
+    console.log('ACHEI', currentRole.role);
+  }
+  console.log(isLogged, Role);
 
   return (
     <div className={ styles.loginPage }>
