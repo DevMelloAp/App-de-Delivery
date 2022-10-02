@@ -1,6 +1,7 @@
 const initialState = {
   cart: [],
   total: 0,
+  seller: '',
 };
 
 const productReducer = (state = initialState, action) => {
@@ -30,6 +31,8 @@ const productReducer = (state = initialState, action) => {
     return { ...state,
       cart: [...state.cart
         .filter((productCart) => productCart.id !== action.data.id)] };
+  case 'ADD_SELLER':
+    return { ...state, seller: action.data };
   default:
     return state;
   }

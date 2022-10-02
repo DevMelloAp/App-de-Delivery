@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Checkout() {
   const cartTotal = useSelector((state) => state.product.total);
-  const cart = useSelector((state) => state.product.cart);
-  console.log(cart);
+  // const cart = useSelector((state) => state.product.cart);
+  // console.log(cart);
   // const history = useHistory();
   const navigate = useNavigate();
   useEffect(() => {

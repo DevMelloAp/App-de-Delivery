@@ -9,12 +9,13 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { cartTotal } from '../utils/cartLocalsotorage';
-import { createSales } from '../utils/request';
+import { createSales, requestData } from '../utils/request';
 import { getToLocalstorage } from '../utils/userLocalstorage';
 import TableCard from './Table';
+import { addSeller } from '../redux/actions/products';
 
 const useStyless = makeStyles((theme) => ({
   root: {
@@ -34,7 +35,9 @@ const useStyles = makeStyles({
 function Form() {
   const classe = useStyless();
   const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const [seller, setSeller] = useState('');
+  const [sellers, setSellers] = useState([]);
   const [products, setProducts] = useState('');
   const [endereço, setEndereço] = useState('');
   const [numero, setNumero] = useState('');
@@ -42,13 +45,17 @@ function Form() {
   const itens = useSelector((state) => state.product.cart);
   const total = useSelector((state) => state.product.total);
 
-  console.log(itens, 'itens------------------------------------');
-  console.log(totalCart, 'totalCart------------------------------------');
   const navigate = useNavigate();
+
+  const getSellers = async () => {
+    const sellersList = await requestData('/sellers');
+    setSellers(sellersList);
+  };
 
   useEffect(() => {
     setProducts(itens);
     setTotalCart(total);
+    getSellers();
   }, []);
 
   useEffect(() => {
@@ -82,21 +89,29 @@ function Form() {
     </TableHead>
   );
 
+  const [idSeller] = sellers.filter((s) => s.name === seller).map((it) => it.id);
+
   const handleOrders = async () => {
     const user = getToLocalstorage('user');
     // const itens = getProductsToLocal();
     const idAndQuantity = itens
       .map((item) => ({ productId: item.id, quantity: item.quantity }));
 
-    const data = await createSales('/sales', {
+    const order = {
       userId: user.id,
-      sellerId: 2,
+      sellerId: idSeller,
       totalPrice: cartTotal(),
       deliveryAddress: endereço,
       deliveryNumber: numero,
       status: 'Pendente',
       productsList: idAndQuantity,
-    }, user.token);
+    };
+
+    console.log('order -----> ', order);
+
+    const data = await createSales('/sales', order, user.token);
+
+    console.log('data ----> ', data);
 
     return navigate(`/customer/orders/${data.id}`);
   };
@@ -132,16 +147,16 @@ function Form() {
         <div>
           <select
             label="Pessoa Vendedora Responsável"
-            value="valor"
-            /* onChange={ handleChange } */
+            value={ seller }
+            onChange={ (e) => { setSeller(e.target.value); } }
             data-testid="customer_checkout__select-seller"
           >
-            <option>
-              valor
-            </option>
-            <option>
-              valor 2
-            </option>
+            <option>Selecione um Vendedor</option>
+            { sellers.map((s, index) => (
+              <option key={ index }>
+                { s.name }
+              </option>
+            ))}
           </select>
           <input
             label="Endereço"
@@ -168,6 +183,7 @@ function Form() {
         onClick={ () => {
           handleOrders();
           localStorage.removeItem('carrinho');
+          dispatch(addSeller(seller));
         } }
         disableElevation
         data-testid="customer_checkout__button-submit-order"

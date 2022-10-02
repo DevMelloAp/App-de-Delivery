@@ -5,10 +5,10 @@ import './App.css';
 import Administrator from './Pages/Administrator';
 import Checkout from './Pages/Checkout';
 import Login from './Pages/Login';
-import Orders from './Pages/orders';
 import Products from './Pages/Products';
 import Register from './Pages/Register';
 import SalesOrders from './Pages/SalesOrders';
+import Orders from './Pages/Orders';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
       <Route exact path="/register" element={ <Register /> } />
       <Route exact path="/customer/checkout" element={ <Checkout /> } />
       <Route exact path="/admin/manage" element={ <Administrator /> } />
-      <Route exact path="/customer/order/:id" element={ <Orders /> } />
+      <Route exact path="/customer/orders/:id" element={ <Orders /> } />
     </Routes>
   );
 }
