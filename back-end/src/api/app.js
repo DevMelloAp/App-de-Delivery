@@ -6,9 +6,7 @@ const express = require('express');
 const userRouter = require('../routes/userRoutes');
 const usersRouter = require('../routes/usersRoutes');
 const sellersRouter = require('../routes/sellersRoutes');
-
 const loginRouter = require('../routes/loginRoutes');
-
 const salesRouter = require('../routes/salesRouter');
 const orderRouter = require('../routes/orderRoutes');
 
@@ -39,7 +37,6 @@ app.use('/sellers', sellersRouter);
 app.use('/', sellersRouter);
 app.use('/sales', salesRouter);
 app.use('/orders', orderRouter);
-
 app.use('/products', productsRouter);
 
 app.use('/images', express.static('public'));
