@@ -10,6 +10,7 @@ const sellersRouter = require('../routes/sellersRoutes');
 const loginRouter = require('../routes/loginRoutes');
 
 const salesRouter = require('../routes/salesRouter');
+const orderRouter = require('../routes/orderRoutes');
 
 const productsRouter = require('../routes/productsRoutes');
 
@@ -33,8 +34,8 @@ app.use('/login', loginRouter);
 app.use('/register', userRouter);
 app.use('/users', usersRouter);
 app.use('/sellers', sellersRouter);
-
 app.use('/sales', salesRouter);
+app.use('/orders', orderRouter);
 
 app.use('/products', productsRouter);
 app.use('/images', express.static('public'));

@@ -4,17 +4,14 @@ import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import styles from '../styles/login.module.css';
 import { requestLogin } from '../utils/request';
-import { sendToLocalstorage } from '../utils/userLocalstorage';
+import { sendToLocalstorage, getToLocalstorage } from '../utils/userLocalstorage';
 import { setUserEmail } from '../redux/actions/user';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [enableButton, setEnableButton] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
-  // const [ Token, setToken] = useState('');
-  const [Role, setRole] = useState('');
 
   const navigate = useNavigate();
   const dispacth = useDispatch();
@@ -35,15 +32,10 @@ function Login() {
       const request = await requestLogin('/login', { email, password });
       console.log(request);
       const { name, token, role, id } = request;
-      setRole(role);
       sendToLocalstorage({ id, name, email, token, role });
-      // localStorage.setItem('token', token);
-      // localStorage.setItem('role', role);
-      setIsLogged(true);
       dispacth(setUserEmail(email));
     } catch (error) {
       setFailedTryLogin(true);
-      setIsLogged(false);
     }
   };
 
@@ -51,11 +43,12 @@ function Login() {
     setFailedTryLogin(false);
   }, [email, password]);
 
-  if (isLogged && Role === 'customer') return <Navigate to="/customer/products" />;
-
-  if (isLogged && Role === 'administrator') return <Navigate to="/admin/manage" />;
-
-  if (isLogged && Role === 'seller') return <Navigate to="/seller/orders" />;
+  const currentRole = getToLocalstorage();
+  if (currentRole && currentRole.role) {
+    if (currentRole?.role === 'customer') return <Navigate to="/customer/products" />;
+    if (currentRole?.role === 'seller') return <Navigate to="/seller/orders" />;
+    if (currentRole?.role === 'admin') return <Navigate to="/admin/manage" />;
+  }
 
   return (
     <div className={ styles.loginPage }>

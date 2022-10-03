@@ -1,21 +1,24 @@
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
 const { createSalesService,
-  updateSalesService} = require('../services/salesService');
+  updateSalesService, getOrdersBySellerService } = require('../services/salesService');
 
 const createSalesController = async (req, res) => {
   const data = req.body;
  
- const token = req.headers.Authorization;
-    console.log(token);
-    // const validateToken = JwtServiceSignDecode(token);
+ const token = req.headers.authorization;
 
-    // if(!validateToken) {
-    //   const e = new Error('Invalid token');
-    //   e.name = 'NotFoundError';
-    //   throw e; 
-    // }
-   const sale = await createSalesService(data);
+    const validateToken = jwt.verify(token, process.env.JWT_SECRET || senha);
 
-  res.status(201).json(sale);  
+    const { id } = validateToken.id;
+
+    const verifyToken = await UserService.list({ where: { id } });
+
+    if (verifyToken) {
+      const sale = await createSalesService(data);
+
+      res.status(201).json(sale);  
+    }
 };
 
 const updateSalesController = async (req, res) => {
@@ -26,6 +29,10 @@ const updateSalesController = async (req, res) => {
   res.status(201).json({ mensage: 'Updated' });
 };
 
+const getOrdersBySellerController = async (req, res) => {
+  const { email } = req.query;
+  const orders = await getOrdersBySellerService(email);
+  return res.status(200).json(orders);
+};
 
-
-module.exports = { createSalesController, updateSalesController };
+module.exports = { createSalesController, updateSalesController, getOrdersBySellerController };

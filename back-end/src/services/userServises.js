@@ -58,4 +58,10 @@ const listSellers = async () => {
   return users;
 };
 
-module.exports = { create, loginService, list, listSellers };
+const getSeller = async (idSeller) => {
+  const seller = await User.findByPk(idSeller);
+  
+  return seller;
+};
+
+module.exports = { create, loginService, list, listSellers, getSeller };

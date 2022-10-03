@@ -22,7 +22,7 @@ export default function Header() {
           <Button
             variant="contained"
             color="primary"
-            href="/orders"
+            href="/customer/orders"
             data-testid="customer_products__element-navbar-link-orders"
           >
             MEUS PEDIDOS

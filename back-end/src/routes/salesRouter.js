@@ -1,7 +1,7 @@
 const { Router } = require('express');
 
 const { createSalesController, 
-  updateSalesController } = require('../controllers/salesController');
+  updateSalesController, getOrdersBySellerController } = require('../controllers/salesController');
 
 const router = Router();
 
