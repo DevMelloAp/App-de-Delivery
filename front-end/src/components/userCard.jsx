@@ -4,6 +4,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { removeUser } from '../redux/actions/user';
 import { removeUserRequest } from '../utils/request';
 // import { useDispatch } from 'react-redux';
 
@@ -26,13 +28,14 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-const removeUser = () => {
-  removeUserRequest(email);
-};
-
 function UserCard(props) {
-  // const dispatch = useDispatch();
   const { name, email, role, index } = props;
+  const dispatch = useDispatch();
+
+  const updateUser = () => {
+    removeUserRequest(email);
+    dispatch(removeUser(email));
+  };
 
   return (
     <StyledTableRow key={ index }>
@@ -79,7 +82,7 @@ function UserCard(props) {
           disableElevation
           data-testid={ `admin_manage__element-user-table-remove-${index}` }
           onClick={ () => {
-            removeUser();
+            updateUser();
           } }
         >
           Excluir

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { setUserEmail } from '../redux/actions/user';
 import styles from '../styles/login.module.css';
 import { requestLogin } from '../utils/request';
-import { sendToLocalstorage, getToLocalstorage } from '../utils/userLocalstorage';
-import { setUserEmail } from '../redux/actions/user';
+import { getToLocalstorage, sendToLocalstorage } from '../utils/userLocalstorage';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -30,10 +30,13 @@ function Login() {
 
     try {
       const request = await requestLogin('/login', { email, password });
-      console.log(request);
       const { name, token, role, id } = request;
       sendToLocalstorage({ id, name, email, token, role });
       dispacth(setUserEmail(email));
+
+      if (role === 'customer') return navigate('/customer/products');
+      if (role === 'seller') return navigate('/seller/orders');
+      if (role === 'administrator') return navigate('/admin/manage');
     } catch (error) {
       setFailedTryLogin(true);
     }
@@ -47,7 +50,7 @@ function Login() {
   if (currentRole && currentRole.role) {
     if (currentRole?.role === 'customer') return <Navigate to="/customer/products" />;
     if (currentRole?.role === 'seller') return <Navigate to="/seller/orders" />;
-    if (currentRole?.role === 'admin') return <Navigate to="/admin/manage" />;
+    if (currentRole?.role === 'administrator') return <Navigate to="/admin/manage" />;
   }
 
   return (

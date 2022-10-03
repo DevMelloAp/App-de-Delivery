@@ -2,7 +2,10 @@ import { Table, TableBody, TableContainer, TableHead, TableRow } from '@material
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setUserList } from '../redux/actions/user';
+import { getUser } from '../utils/request';
 import UserCard from './userCard';
 
 const StyledTableCell = withStyles((theme) => ({
@@ -36,7 +39,21 @@ const useStyles = makeStyles({
 });
 
 function ListUser() {
-  const userList = [{ name: 'Imar', email: 'imarmendes@gmail.com', role: 'customer' }];
+  const [userList, setUsersList] = useState([]);
+  const dispatch = useDispatch();
+
+  const getUserList = async () => {
+    const list = await getUser('/users');
+    setUsersList(list);
+    dispatch(setUserList(list));
+  };
+
+  useEffect(() => {
+    getUserList();
+  }, []);
+
+  console.log(userList);
+  // const userList = [{ name: 'Imar', email: 'imarmendes@gmail.com', role: 'customer' }];
   const classes = useStyles();
   return (
     <div>
@@ -46,7 +63,7 @@ function ListUser() {
         <Table className={ classes.table } size="small" aria-label="a dense table">
           <TableBody>
             { tHead() }
-            { userList ? userList.map((user, index) => (
+            { userList ? userList?.map((user, index) => (
               <div key={ user.name }>
                 <UserCard
                   name={ user.name }

@@ -26,12 +26,10 @@ function RegisterUserByAdm() {
     const { token } = getToLocalstorage();
     const newUser = { email, name, password, role };
     try {
-      const user = await registerByAdm(newUser, token);
+      await registerByAdm(newUser, token);
       setFailedTryRegister(false);
-      console.log(user);
     } catch (error) {
       setFailedTryRegister(true);
-      console.error(error);
     }
   };
 

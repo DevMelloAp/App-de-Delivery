@@ -55,6 +55,7 @@ const listSellers = async (req, res) => {
 
 const removeUser = async (req, res) => {
   const { email } = req.body;
+  console.log(email);
   const users = await UserService.removeUser(email);
   
   res.status(StatusCodes.OK).json({mensage: 'Usuário excluido'});
