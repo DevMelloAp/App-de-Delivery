@@ -18,6 +18,7 @@ const createAdmin = async (req, res) => {
   const token = req.headers.authorization;
  try {
    const validateToken = JwtServiceSignDecode(token); 
+   console.log(validateToken);
  } catch (error) {
      const e = new Error('Invalid token');
      e.name = 'NotFoundError';
@@ -55,10 +56,9 @@ const listSellers = async (req, res) => {
 
 const removeUser = async (req, res) => {
   const { email } = req.body;
-  console.log(email);
-  const users = await UserService.removeUser(email);
+  await UserService.removeUser(email);
   
-  res.status(StatusCodes.OK).json({mensage: 'Usuário excluido'});
+  res.status(StatusCodes.OK).json({ mensage: 'Usuário excluido' });
 };
 
 const getSeller = async (req, res) => {
