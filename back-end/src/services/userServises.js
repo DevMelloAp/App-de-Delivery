@@ -59,7 +59,6 @@ const listSellers = async () => {
   return users;
 };
 
-
 const removeUser = async (email) => {
   const users = await User.destroy({ where: { email } });
   
