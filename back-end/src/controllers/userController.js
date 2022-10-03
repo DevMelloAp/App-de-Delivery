@@ -17,7 +17,8 @@ const createAdmin = async (req, res) => {
   const { name, email, password, role } = req.body;
   const token = req.headers.authorization;
  try {
-    JwtServiceSignDecode(token); 
+   const validateToken = JwtServiceSignDecode(token); 
+   console.log(validateToken);
  } catch (error) {
      const e = new Error('Invalid token');
      e.name = 'NotFoundError';

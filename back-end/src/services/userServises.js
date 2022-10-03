@@ -8,7 +8,8 @@ const { JwtServiceSign } = require('./JwtService');
 
 const create = async ({ name, email, password, role }) => {
   registerValidate(email, password, name);
-    if (!role) role = 'customer';
+  let newRole = '';
+    if (!role) newRole = 'customer';
     const foundEmail = await User.findOne({ where: { email } });
     const foundName = await User.findOne({ where: { name } });
   
@@ -18,7 +19,7 @@ const create = async ({ name, email, password, role }) => {
     throw e;
   }
 
-  const user = await User.create({ name, email, password, role });
+  const user = await User.create({ name, email, password, role: newRole });
 
   const token = JwtServiceSign({ id: user.id, email: user.email });
 
