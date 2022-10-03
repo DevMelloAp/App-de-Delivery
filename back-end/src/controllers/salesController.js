@@ -2,9 +2,6 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const { createSalesService,
   updateSalesService, getOrdersBySellerService } = require('../services/salesService');
-const UserService = require('../services/userServises'); 
-
-const senha = fs.readFileSync('jwt.evaluation.key', 'utf-8');
 
 const createSalesController = async (req, res) => {
   const data = req.body;
