@@ -66,4 +66,10 @@ const removeUser = async (email) => {
   return users;
 };
 
-module.exports = { create, loginService, list, listSellers, removeUser };
+const getSeller = async (idSeller) => {
+  const seller = await User.findByPk(idSeller);
+  
+  return seller;
+};
+
+module.exports = { create, loginService, list, listSellers, getSeller, removeUser };

@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 import OrdersHeader from '../components/SalesOrdersHeader';
 import OrdersContent from '../components/SalesOrdersContent';
 import { requestData } from '../utils/request';
+import styles from '../styles/orders.module.css';
 
 export default function SalesOrders() {
   const [orders, setOrders] = useState([]);
   const sellerEmail = useSelector((store) => store.user.email);
 
   const getOrders = async () => {
-    const endpoint = `/sales/orders?email=${sellerEmail}`;
+    const endpoint = `/sellers/orders?email=${sellerEmail}`;
     const data = await requestData(endpoint);
     setOrders(data);
   };
@@ -21,17 +22,19 @@ export default function SalesOrders() {
   return (
     <>
       <OrdersHeader />
-      {orders && orders.map((order) => (
-        <OrdersContent
-          key={ order.id }
-          id={ order.id }
-          status={ order.status }
-          date={ order.saleDate }
-          price={ order.totalPrice }
-          address={ order.deliveryAddress }
-          addressNumber={ order.deliveryNumber }
-        />
-      ))}
+      <div className={ styles.ordersPage }>
+        {orders && orders.map((order) => (
+          <OrdersContent
+            key={ order.id }
+            id={ order.id }
+            status={ order.status }
+            date={ order.saleDate }
+            price={ order.totalPrice }
+            address={ order.deliveryAddress }
+            addressNumber={ order.deliveryNumber }
+          />
+        ))}
+      </div>
     </>
   );
 }

@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { cartTotal } from '../utils/cartLocalsotorage';
-import { createSales } from '../utils/request';
+import { createSales, requestData } from '../utils/request';
 import { getToLocalstorage } from '../utils/userLocalstorage';
 import TableCard from './Table';
 
@@ -34,7 +34,8 @@ const useStyles = makeStyles({
 function Form() {
   const classe = useStyless();
   const classes = useStyles();
-
+  const [seller, setSeller] = useState('');
+  const [sellers, setSellers] = useState([]);
   const [products, setProducts] = useState('');
   const [endereço, setEndereço] = useState('');
   const [numero, setNumero] = useState('');
@@ -42,13 +43,17 @@ function Form() {
   const itens = useSelector((state) => state.product.cart);
   const total = useSelector((state) => state.product.total);
 
-  console.log(itens, 'itens------------------------------------');
-  console.log(totalCart, 'totalCart------------------------------------');
   const navigate = useNavigate();
+
+  const getSellers = async () => {
+    const sellersList = await requestData('/sellers');
+    setSellers(sellersList);
+  };
 
   useEffect(() => {
     setProducts(itens);
     setTotalCart(total);
+    getSellers();
   }, []);
 
   useEffect(() => {
@@ -132,16 +137,16 @@ function Form() {
         <div>
           <select
             label="Pessoa Vendedora Responsável"
-            value="valor"
-            /* onChange={ handleChange } */
+            value={ seller }
+            onChange={ (e) => { setSeller(e.target.value); } }
             data-testid="customer_checkout__select-seller"
           >
-            <option>
-              valor
-            </option>
-            <option>
-              valor 2
-            </option>
+            <option>Selecione um Vendedor</option>
+            { sellers.map((s, index) => (
+              <option key={ index }>
+                { s.name }
+              </option>
+            ))}
           </select>
           <input
             label="Endereço"

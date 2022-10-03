@@ -41,4 +41,16 @@ export const removeUserRequest = async (email) => {
   await api.post('/users/remove', { email });
 };
 
+export const getOrderByUser = async (endpoint, saleId) => {
+  const { data } = await api.get(endpoint, { params: { id: saleId } });
+
+  return data;
+};
+
+export const getSellerById = async (endpoint, sellerId) => {
+  const { data } = await api.get(endpoint, { params: { id: sellerId } });
+
+  return data;
+};
+
 export default api;

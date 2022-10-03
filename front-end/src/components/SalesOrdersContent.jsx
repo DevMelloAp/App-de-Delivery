@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../styles/orders.module.css';
 import formatDate from '../utils/formatDate';
 
@@ -9,6 +10,8 @@ export default function SalesOrdersContent({ id,
 
   }, []);
 
+  const navigate = useNavigate();
+
   const dataTestId = {
     id: `seller_orders__element-order-id-${id}`,
     status: `seller_orders__element-delivery-status-${id}`,
@@ -17,9 +20,30 @@ export default function SalesOrdersContent({ id,
     address: `seller_orders__element-card-address-${id}`,
   };
 
+  const renderInfos = () => (
+    <>
+      <span
+        data-testid={ dataTestId.date }
+        className={ styles.date }
+      >
+        {formatDate(date)}
+      </span>
+      <span
+        data-testid={ dataTestId.price }
+        className={ styles.price }
+      >
+        R$
+        {' '}
+        {price}
+      </span>
+    </>
+  );
+
   return (
-    <div
-      className={ styles.ordersPage }
+    <button
+      type="submit"
+      className={ styles.ordersPage__btn }
+      onClick={ () => navigate(`/seller/orders/${id}`) }
     >
       <div className={ styles.orderStatus }>
         <div
@@ -37,20 +61,7 @@ export default function SalesOrdersContent({ id,
             {status}
           </div>
           <div className={ styles.datePrice }>
-            <span
-              data-testid={ dataTestId.date }
-              className={ styles.date }
-            >
-              {formatDate(date)}
-            </span>
-            <span
-              data-testid={ dataTestId.price }
-              className={ styles.price }
-            >
-              R$
-              {' '}
-              {price}
-            </span>
+            {renderInfos()}
           </div>
         </div>
         <div
@@ -60,7 +71,7 @@ export default function SalesOrdersContent({ id,
           {`${address}, ${addressNumber}`}
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 

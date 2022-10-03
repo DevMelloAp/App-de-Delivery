@@ -60,4 +60,10 @@ const removeUser = async (req, res) => {
   res.status(StatusCodes.OK).json({mensage: 'Usuário excluido'});
 };
 
-module.exports = { create, loginController, list, listSellers, createAdmin, removeUser };
+const getSeller = async (req, res) => {
+  const seller = await UserService.getSeller(req.query.id);
+  
+  res.status(201).json(seller);
+};
+
+module.exports = { create, loginController, list, listSellers, getSeller, createAdmin, removeUser };

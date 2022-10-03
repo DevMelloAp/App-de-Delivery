@@ -1,10 +1,8 @@
 const formatDate = (date) => {
   const index = date.indexOf('T');
   const result = date.slice(0, index);
-  const data = new Date(result);
-  const d = data.getDate();
-  const m = data.getMonth();
-  const y = data.getFullYear();
+  const data = result.split('-');
+  const [y, m, d] = data;
   return `${d}/${m}/${y}`;
 };
 
