@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { register } from '../utils/request';
+import { registerByAdm } from '../utils/request';
+import { getToLocalstorage } from '../utils/userLocalstorage';
 
 function RegisterUserByAdm() {
   const [name, setName] = useState('');
@@ -7,6 +8,7 @@ function RegisterUserByAdm() {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('customer');
   const [enableButton, setEnableButton] = useState(true);
+  const [failedTryRegister, setFailedTryRegister] = useState(false);
 
   useEffect(() => {
     const regexEmail = /\S+@\S+\.\S+/;
@@ -21,10 +23,13 @@ function RegisterUserByAdm() {
 
   const handleRegister = async (event) => {
     event.preventDefault();
+    const { token } = getToLocalstorage();
+    const newUser = { email, name, password, role };
     try {
-      await register('/register', { email, name, password });
+      await registerByAdm(newUser, token);
+      setFailedTryRegister(false);
     } catch (error) {
-      console.error(error);
+      setFailedTryRegister(true);
     }
   };
 
@@ -89,6 +94,13 @@ function RegisterUserByAdm() {
 
         </button>
       </div>
+      { failedTryRegister ? (
+        <p
+          data-testid="admin_manage__element-invalid-register"
+        >
+          Usuário ja existente
+        </p>
+      ) : null}
     </div>
   );
 }

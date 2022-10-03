@@ -2,6 +2,7 @@ const md5 = require('md5');
 const { StatusCodes } = require('http-status-codes');
 const UserService = require('../services/userServises');
 const { loginService } = require('../services/userServises');
+const { JwtServiceSignDecode } = require('../services/JwtService');
 
 const create = async (req, res) => {
   const { name, email, password } = req.body;
@@ -9,7 +10,22 @@ const create = async (req, res) => {
   const passwordMd5 = md5(password);
   const newUser = await UserService.create({ name, email, password: passwordMd5 });
 
-  console.log(newUser);
+  res.status(201).json(newUser);
+};
+
+const createAdmin = async (req, res) => {
+  const { name, email, password, role } = req.body;
+  const token = req.headers.authorization;
+ try {
+   const validateToken = JwtServiceSignDecode(token); 
+ } catch (error) {
+     const e = new Error('Invalid token');
+     e.name = 'NotFoundError';
+     throw e; 
+  }
+  const passwordMd5 = md5(password);
+  const newUser = await UserService.create({ name, email, password: passwordMd5, role });
+
   res.status(201).json(newUser);
 };
 
@@ -28,13 +44,21 @@ const loginController = async (req, res) => {
 const list = async (req, res) => {
   const users = await UserService.list();
   
-  res.status(201).json(users);
+  res.status(StatusCodes.CREATED).json(users);
 };
 
 const listSellers = async (req, res) => {
   const users = await UserService.listSellers();
   
-  res.status(201).json(users);
+  res.status(StatusCodes.CREATED).json(users);
+};
+
+const removeUser = async (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+  const users = await UserService.removeUser(email);
+  
+  res.status(StatusCodes.OK).json({mensage: 'Usuário excluido'});
 };
 
 const getSeller = async (req, res) => {
@@ -43,4 +67,4 @@ const getSeller = async (req, res) => {
   res.status(201).json(seller);
 };
 
-module.exports = { create, loginController, list, listSellers, getSeller };
+module.exports = { create, loginController, list, listSellers, getSeller, createAdmin, removeUser };

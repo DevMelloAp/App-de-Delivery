@@ -1,21 +1,22 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
 import Administrator from './Pages/Administrator';
+import AllOrders from './Pages/AllOrders';
 import Checkout from './Pages/Checkout';
 import Login from './Pages/Login';
+import Orders from './Pages/Orders';
 import Products from './Pages/Products';
 import Register from './Pages/Register';
-import AllOrders from './Pages/AllOrders';
 import SalesOrders from './Pages/SalesOrders';
 import SalesOrdersById from './Pages/SalesOrdersById';
-import Orders from './Pages/Orders';
+import Start from './Pages/Start';
 
 function App() {
   return (
     <Routes>
-      <Route exact path="/" element={ <Navigate to="/login" /> } />
+      <Route exact path="/" element={ <Start /> } />
       <Route exact path="/customer/products" element={ <Products /> } />
       <Route exact path="/seller/orders" element={ <SalesOrders /> } />
       <Route exact path="/seller/orders/:id" element={ <SalesOrdersById /> } />

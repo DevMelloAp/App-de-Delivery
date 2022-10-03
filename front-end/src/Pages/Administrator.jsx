@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/headerAdmin';
+import ListUser from '../components/listUser';
 import RegisterUserByAdm from '../components/registerUserByAdm';
 
 function Administrator() {
@@ -7,7 +8,7 @@ function Administrator() {
     <div>
       <Header />
       <RegisterUserByAdm />
-
+      <ListUser />
     </div>
   );
 }
