@@ -7,7 +7,6 @@ const db = require('../database/models');
 const { JwtServiceSign } = require('./JwtService');
 
 const create = async ({ name, email, password, role }) => {
-
   registerValidate(email, password, name);
     if (!role) role = 'customer';
     const foundEmail = await User.findOne({ where: { email } });
