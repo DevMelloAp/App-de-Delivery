@@ -11,7 +11,7 @@ const create = async ({ name, email, password, role }) => {
 
   let newRole = '';
   if (!role) newRole = 'customer';
-  else newRole = role
+  else newRole = role;
   const foundEmail = await User.findOne({ where: { email } });
   const foundName = await User.findOne({ where: { name } });
   

@@ -18,7 +18,6 @@ const createAdmin = async (req, res) => {
   const token = req.headers.authorization;
  try {
     JwtServiceSignDecode(token); 
-
  } catch (error) {
      const e = new Error('Invalid token');
      e.name = 'NotFoundError';
