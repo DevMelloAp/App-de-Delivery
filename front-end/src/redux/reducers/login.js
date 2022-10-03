@@ -9,9 +9,10 @@ const userReducer = (state = initialState, action) => {
     return { ...state, email: action.data };
 
   case 'SET_USER_LIST':
-    return { ...state, userList: [...state.userList, action.data] };
+    return { ...state, userList: [...state.userList, ...action.data] };
 
   case 'REMOVE_USER':
+    // console.log(action.data);
     return { ...state,
       userList: state.userList
         .filter((user) => user.email !== action.data) };
