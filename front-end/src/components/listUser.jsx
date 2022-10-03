@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserList } from '../redux/actions/user';
 import { getUser } from '../utils/request';
 import UserCard from './userCard';
@@ -41,6 +41,7 @@ const useStyles = makeStyles({
 function ListUser() {
   const [userList, setUsersList] = useState([]);
   const dispatch = useDispatch();
+  const listUserRedux = useSelector((state) => state.user.userList);
 
   const getUserList = async () => {
     const list = await getUser('/users');
@@ -52,7 +53,10 @@ function ListUser() {
     getUserList();
   }, []);
 
-  console.log(userList);
+  useEffect(() => {
+    setUsersList(listUserRedux);
+  }, [listUserRedux]);
+
   // const userList = [{ name: 'Imar', email: 'imarmendes@gmail.com', role: 'customer' }];
   const classes = useStyles();
   return (

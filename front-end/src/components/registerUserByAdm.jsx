@@ -31,7 +31,7 @@ function RegisterUserByAdm() {
     console.log(newUser);
     try {
       await registerByAdm(newUser, token);
-      dispatch(setUserList(newUser));
+      dispatch(setUserList([newUser]));
       setFailedTryRegister(false);
     } catch (error) {
       setFailedTryRegister(true);
