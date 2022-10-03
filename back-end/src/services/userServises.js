@@ -6,9 +6,10 @@ const registerValidate = require('../middlewares/registerValidate');
 const db = require('../database/models');
 const { JwtServiceSign } = require('./JwtService');
 
-const create = async ({ name, email, password }) => {
+const create = async ({ name, email, password, role }) => {
+
   registerValidate(email, password, name);
-    const role = 'customer';
+    if (!role) role = 'customer';
     const foundEmail = await User.findOne({ where: { email } });
     const foundName = await User.findOne({ where: { name } });
   
@@ -58,4 +59,11 @@ const listSellers = async () => {
   return users;
 };
 
-module.exports = { create, loginService, list, listSellers };
+
+const removeUser = async (email) => {
+  const users = await User.destroy({ where: { email } });
+  
+  return users;
+};
+
+module.exports = { create, loginService, list, listSellers, removeUser };

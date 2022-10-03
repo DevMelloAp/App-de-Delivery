@@ -23,11 +23,22 @@ export const register = async (endpoint, body) => {
   return data;
 };
 
+export const registerByAdm = async (body, token) => {
+  const endpoint = '/register/admin';
+  const headers = { headers: { Authorization: token } };
+  const { data } = await api.post(endpoint, body, headers);
+  return data;
+};
+
 export const createSales = async (endpoint, body, token) => {
   const headers = { headers: { Authorization: token } };
   const { data } = await api.post(endpoint, body, headers);
 
   return data;
+};
+
+export const removeUserRequest = async (email) => {
+  await api.post('/users/remove', { email });
 };
 
 export default api;
