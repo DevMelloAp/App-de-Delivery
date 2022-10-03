@@ -7,6 +7,6 @@ const router = Router();
 
 router.get('/', userController.listSellers);
 router.get('/orders', getSellerOrdesController);
-router.get('/orders/details', getSellerOrderDetailsController)
+router.get('/orders/details/:id', getSellerOrderDetailsController)
 
 module.exports = router;

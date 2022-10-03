@@ -10,7 +10,7 @@ const getSellerOrdersService = async (email) => {
 const getSellerOrdersDetailsService = async (id) => {
   const ordersDetails = Sale.findByPk(id, {
     include: [
-      { model: Product, as: 'products'}
+      { model: Product, as: 'products'},
     ]
   })
 

@@ -7,7 +7,7 @@ const getSellerOrdesController = async (req, res) => {
 
 
 const getSellerOrderDetailsController = async (req, res) => {
-  const { id } = req.query;
+  const { id } = req.params;
   const orders = await getSellerOrdersDetailsService(id);
   return res.status(200).json(orders);
 };
