@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setUserList } from '../redux/actions/user';
 import { registerByAdm } from '../utils/request';
 import { getToLocalstorage } from '../utils/userLocalstorage';
 
@@ -9,6 +11,7 @@ function RegisterUserByAdm() {
   const [role, setRole] = useState('customer');
   const [enableButton, setEnableButton] = useState(true);
   const [failedTryRegister, setFailedTryRegister] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const regexEmail = /\S+@\S+\.\S+/;
@@ -25,8 +28,10 @@ function RegisterUserByAdm() {
     event.preventDefault();
     const { token } = getToLocalstorage();
     const newUser = { email, name, password, role };
+    console.log(newUser);
     try {
       await registerByAdm(newUser, token);
+      dispatch(setUserList(newUser));
       setFailedTryRegister(false);
     } catch (error) {
       setFailedTryRegister(true);

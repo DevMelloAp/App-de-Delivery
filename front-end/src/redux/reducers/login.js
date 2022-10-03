@@ -9,7 +9,7 @@ const userReducer = (state = initialState, action) => {
     return { ...state, email: action.data };
 
   case 'SET_USER_LIST':
-    return { ...state, userList: action.data };
+    return { ...state, userList: [...state.userList, action.data] };
 
   case 'REMOVE_USER':
     return { ...state,

@@ -8,19 +8,21 @@ const { JwtServiceSign } = require('./JwtService');
 
 const create = async ({ name, email, password, role }) => {
   registerValidate(email, password, name);
+
   let newRole = '';
-    if (!role) newRole = 'customer';
-    const foundEmail = await User.findOne({ where: { email } });
-    const foundName = await User.findOne({ where: { name } });
+  if (!role) newRole = 'customer';
+  else newRole = role;
+  const foundEmail = await User.findOne({ where: { email } });
+  const foundName = await User.findOne({ where: { name } });
   
   if (foundEmail || foundName) {
     const e = new Error('User already registered');
     e.name = 'ConflictError';
     throw e;
   }
-
-  const user = await User.create({ name, email, password, role: newRole });
-
+  
+  const user = await User.create({ name, email, password, role: newRole });  
+  
   const token = JwtServiceSign({ id: user.id, email: user.email });
 
   return { name: user.name, email: user.email, role: user.role, token };
