@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import OrdersHeader from '../components/SalesOrdersHeader';
-import OrdersContent from '../components/SalesOrdersContent';
+import SalesOrdersHeader from '../components/SalesOrdersHeader';
+import SalesOrdersContent from '../components/SalesOrdersContent';
 import { requestData } from '../utils/request';
 import styles from '../styles/orders.module.css';
 
@@ -21,10 +21,10 @@ export default function SalesOrders() {
 
   return (
     <>
-      <OrdersHeader />
+      <SalesOrdersHeader />
       <div className={ styles.ordersPage }>
         {orders && orders.map((order) => (
-          <OrdersContent
+          <SalesOrdersContent
             key={ order.id }
             id={ order.id }
             status={ order.status }
