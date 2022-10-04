@@ -31,14 +31,14 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-// const dataTestId = {
-//   id: 'seller_order_details__element-order-details-label-order-id',
-//   date: 'seller_order_details__element-order-details-label-order-date',
-//   status: 'seller_order_details__element-order-details-label-delivery-status',
-//   preparing: 'seller_order_details__button-preparing-check',
-//   dispatch: 'seller_order_details__button-dispatch-check',
-//   totalPrice: 'seller_order_details__element-order-total-price',
-// };
+const dataTestId = {
+  id: 'seller_order_details__element-order-details-label-order-id',
+  date: 'seller_order_details__element-order-details-label-order-date',
+  status: 'seller_order_details__element-order-details-label-delivery-status',
+  preparing: 'seller_order_details__button-preparing-check',
+  dispatch: 'seller_order_details__button-dispatch-check',
+  totalPrice: 'seller_order_details__element-order-total-price',
+};
 
 export default function SalesOrdersByIdContent() {
   const classes = useStyles();
@@ -66,19 +66,19 @@ export default function SalesOrdersByIdContent() {
       <div className={ styles.flex__container }>
         {infos && infos.map((info) => (
           <div className={ styles.flex__container__content } key={ info.id }>
-            <h2 data-testid="seller_order_details__element-order-details-label-order-id">
+            <h2 data-testid={ dataTestId.id }>
               Pedido
               {' '}
               {info.id}
             </h2>
             <h2
-              data-testid="seller_order_details__element-order-details-label-order-date"
+              data-testid={ dataTestId.date }
             >
               {formatDate(info.saleDate)}
             </h2>
             <h2
               // eslint-disable-next-line max-len
-              data-testid="seller_order_details__element-order-details-label-delivery-status"
+              data-testid={ dataTestId.status }
             >
               {info.status}
             </h2>
@@ -88,13 +88,13 @@ export default function SalesOrdersByIdContent() {
         <div className={ styles.flex__container__content }>
           <button
             type="button"
-            data-testid="seller_order_details__button-preparing-check"
+            data-testid={ dataTestId.preparing }
           >
             Preparar Pedido
           </button>
           <button
             type="button"
-            data-testid="seller_order_details__button-dispatch-check"
+            data-testid={ dataTestId.dispatch }
             disabled
           >
             Saiu Para Entrega
@@ -125,7 +125,7 @@ export default function SalesOrdersByIdContent() {
         </TableBody>
       </Table>
       <div className={ styles.container__total }>
-        <span data-testid="seller_order_details__element-order-total-price">
+        <span data-testid={ dataTestId.totalPrice }>
           {Number(price).toFixed(2).replace('.', ',')}
         </span>
       </div>
